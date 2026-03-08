@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baby Shopping List</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700;800&family=Montserrat:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --indigo-900: #1e1b4b;
+      --indigo-800: #2d2a6e;
+      --indigo-700: #3730a3;
+      --indigo-600: #4f46e5;
+      --indigo-500: #6366f1;
+      --indigo-300: #a5b4fc;
+      --indigo-100: #e0e7ff;
+      --indigo-50:  #eef2ff;
+      --teal-700:   #0f766e;
+      --teal-600:   #0d9488;
+      --teal-500:   #14b8a6;
+      --teal-400:   #2dd4bf;
+      --teal-100:   #ccfbf1;
+      --teal-50:    #f0fdfa;
+      --slate-800:  #1e293b;
+      --slate-600:  #475569;
+      --slate-400:  #94a3b8;
+      --slate-200:  #e2e8f0;
+      --slate-100:  #f1f5f9;
+      --slate-50:   #f8fafc;
+      --white:      #ffffff;
+      --done-bg:    #f0fdfa;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--slate-50);
+      color: var(--slate-800);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: linear-gradient(135deg, var(--indigo-900) 0%, var(--indigo-700) 60%, var(--teal-700) 100%);
+      padding: 56px 24px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(20,184,166,0.18) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .header-eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--teal-400);
+      margin-bottom: 14px;
+    }
+
+    header h1 {
+      font-family: 'Raleway', sans-serif;
+      font-size: clamp(2.2rem, 6vw, 3.6rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    header h1 span { color: var(--teal-400); }
+
+    .header-sub {
+      font-family: 'Lato', sans-serif;
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.65);
+      max-width: 460px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+
+    /* ── PROGRESS BAR ── */
+    .progress-wrap {
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+
+    .progress-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .progress-count {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--teal-400);
+    }
+
+    .progress-bar-bg {
+      background: rgba(255,255,255,0.15);
+      border-radius: 999px;
+      height: 8px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--teal-500), var(--teal-400));
+      transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+      width: 0%;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--slate-200);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+    }
+
+    .nav-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding: 0 16px;
+      gap: 2px;
+    }
+
+    .nav-inner::-webkit-scrollbar { display: none; }
+
+    nav a {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 14px 14px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--slate-400);
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+
+    nav a:hover {
+      color: var(--indigo-600);
+      border-bottom-color: var(--indigo-600);
+    }
+
+    nav a .nav-icon { font-size: 0.9rem; }
+
+    /* ── MAIN LAYOUT ── */
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    /* ── CATEGORY SECTION ── */
+    .category {
+      margin-bottom: 56px;
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--indigo-100);
+    }
+
+    .cat-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .cat-icon.indigo { background: var(--indigo-100); }
+    .cat-icon.teal   { background: var(--teal-100); }
+
+    .cat-title-wrap {}
+
+    .cat-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal-600);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .cat-title {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--indigo-900);
+      line-height: 1.2;
+    }
+
+    .cat-progress {
+      margin-left: auto;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--slate-400);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── ITEMS ── */
+    .item-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--white);
+      border: 1.5px solid var(--slate-200);
+      border-radius: 10px;
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .item:hover {
+      border-color: var(--indigo-300);
+      box-shadow: 0 2px 12px rgba(99,102,241,0.08);
+    }
+
+    .item.checked {
+      background: var(--done-bg);
+      border-color: var(--teal-400);
+    }
+
+    /* Custom checkbox */
+    .check-box {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 2px solid var(--slate-300);
+      background: var(--white);
+      flex-shrink: 0;
+      margin-top: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .item.checked .check-box {
+      background: var(--teal-500);
+      border-color: var(--teal-500);
+    }
+
+    .check-box svg {
+      width: 13px;
+      height: 13px;
+      stroke: white;
+      stroke-width: 2.5;
+      fill: none;
+      opacity: 0;
+      transform: scale(0.6);
+      transition: opacity 0.15s, transform 0.15s;
+    }
+
+    .item.checked .check-box svg {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .item-body { flex: 1; min-width: 0; }
+
+    .item-name {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--slate-800);
+      line-height: 1.3;
+      transition: color 0.2s;
+    }
+
+    .item.checked .item-name {
+      color: var(--teal-700);
+      text-decoration: line-through;
+      text-decoration-color: var(--teal-400);
+    }
+
+    .item-note {
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--slate-600);
+      margin-top: 3px;
+      line-height: 1.45;
+    }
+
+    .item.checked .item-note { color: var(--teal-700); opacity: 0.7; }
+
+    /* Recommendation pill */
+    .rec {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .rec.indigo { background: var(--indigo-100); color: var(--indigo-700); }
+    .rec.teal   { background: var(--teal-100);   color: var(--teal-700); }
+    .rec.gold   { background: #fef9c3;           color: #854d0e; }
+
+    /* ── PRIORITY BADGE ── */
+    .priority {
+      flex-shrink: 0;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+      margin-top: 2px;
+    }
+
+    .priority.must  { background: #fee2e2; color: #991b1b; }
+    .priority.nice  { background: var(--indigo-100); color: var(--indigo-700); }
+    .priority.skip  { background: var(--slate-100); color: var(--slate-400); }
+
+    /* ── SECTION INTRO ── */
+    .section-intro {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--slate-600);
+      line-height: 1.6;
+      margin-bottom: 18px;
+      max-width: 68ch;
+    }
+
+    /* ── LEGEND ── */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 32px;
+      padding: 16px 20px;
+      background: var(--white);
+      border: 1.5px solid var(--slate-200);
+      border-radius: 10px;
+    }
+
+    .legend-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--slate-400);
+      width: 100%;
+      margin-bottom: 4px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--slate-600);
+    }
+
+    /* ── CLEAR BUTTON ── */
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 24px;
+    }
+
+    .btn-clear {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--slate-400);
+      background: none;
+      border: 1.5px solid var(--slate-200);
+      border-radius: 6px;
+      padding: 8px 14px;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .btn-clear:hover { color: #991b1b; border-color: #fca5a5; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--indigo-900);
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      padding: 32px 24px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.8rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      header { padding: 40px 20px 36px; }
+      .item { padding: 12px 13px; gap: 11px; }
+      .item-name { font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <p class="header-eyebrow">Field Notes · Baby Gear</p>
+    <h1>Baby Shopping<br/><span>Checklist</span></h1>
+    <p class="header-sub">Everything you actually need (and what you can skip). Tap to check off as you go.</p>
+
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span class="progress-label">Overall progress</span>
+        <span class="progress-count" id="global-count">0 / 0</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="global-bar"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#sleep"><span class="nav-icon">😴</span> Sleep</a>
+      <a href="#feeding"><span class="nav-icon">🍼</span> Feeding</a>
+      <a href="#diapering"><span class="nav-icon">🧷</span> Diapering</a>
+      <a href="#clothing"><span class="nav-icon">👕</span> Clothing</a>
+      <a href="#bathing"><span class="nav-icon">🛁</span> Bathing</a>
+      <a href="#travel"><span class="nav-icon">🚗</span> Travel</a>
+      <a href="#health"><span class="nav-icon">🩺</span> Health</a>
+      <a href="#play"><span class="nav-icon">🧸</span> Play</a>
+      <a href="#nursery"><span class="nav-icon">🏠</span> Nursery</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- LEGEND + ACTIONS -->
+    <div class="legend">
+      <span class="legend-title">Key</span>
+      <span class="legend-item"><span class="priority must">Must</span> essential before baby arrives</span>
+      <span class="legend-item"><span class="priority nice">Nice</span> helpful, not critical</span>
+      <span class="legend-item"><span class="priority skip">Skip</span> often unnecessary</span>
+    </div>
+
+    <div class="actions">
+      <button class="btn-clear" onclick="clearAll()">Reset all</button>
+    </div>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- SLEEP -->
+    <!-- ══════════════════════════════════════ -->
+    <section class="category" id="sleep">
+      <div class="category-header">
+        <div class="cat-icon teal">😴</div>
+        <div class="cat-title-wrap">
+          <span class="cat-label">Category 01</span>
+          <span class="cat-title">Sleep</span>
+        </div>
+        <span class="cat-progress" id="prog-sleep"></span>
+      </div>
+      <p class="section-intro">Where baby sleeps safely is the single most important purchase you'll make. Focus on a firm, flat surface and safe sleep guidelines (back to sleep, nothing in the crib).</p>
+      <div class="item-list" data-cat="sleep">
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Bassinet / Moses basket <span class="priority must">Must</span></div>
+            <div class="item-note">For the first 3–6 months, a bedside bassinet is far more practical than waking up for cot feeds. Look for one with a firm, flat mattress and good ventilation.
+              <br/><span class="rec indigo">Pick: Halo Bassinest Swivel</span>
+              <span class="rec teal">Alt: SnüzPod 4</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Cot / crib (0–3 yrs) <span class="priority must">Must</span></div>
+            <div class="item-note">Buy one that converts to a toddler bed to get more mileage from it. Ensure slat spacing meets current safety standards.
+              <br/><span class="rec indigo">Pick: IKEA Sundvik</span>
+              <span class="rec teal">Alt: Stokke Sleepi (pricey but grows with child)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Cot mattress <span class="priority must">Must</span></div>
+            <div class="item-note">Firm and flat — don't skimp here. Should fit snugly with no gaps around the edges. Breathable fabric is a bonus.
+              <br/><span class="rec gold">Pick: Naturepedic Organic</span>
+              <span class="rec indigo">Budget: IKEA Tullugon</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">2× fitted cot sheets <span class="priority must">Must</span></div>
+            <div class="item-note">You'll change these at 3am more than you expect. 100% cotton, fitted only — no loose bedding in the sleep space.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Sleeping bags / swaddle sacks (2–3) <span class="priority must">Must</span></div>
+            <div class="item-note">Safer than blankets and much easier once baby starts rolling. Get 0–6m and 6–18m. Look for 2.5 tog for year-round use.
+              <br/><span class="rec indigo">Pick: Ergobaby Swaddle</span>
+              <span class="rec teal">Alt: Halo SleepSack</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">White noise machine <span class="priority nice">Nice</span></div>
+            <div class="item-note">A game changer for sleep — masks household noise. Many parents swear by it; others find a free app works just as well for newborns.
+              <br/><span class="rec indigo">Pick: Hatch Rest 2nd Gen</span>
+              <span class="rec teal">Budget: LectroFan</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Baby monitor <span class="priority must">Must</span></div>
+            <div class="item-note">Video + audio for peace of mind. Some parents prefer a dedicated camera over a phone app for reliability. Breathing sensors are optional but popular.
+              <br/><span class="rec indigo">Pick: Nanit Pro</span>
+              <span class="rec teal">Alt: Infant Optics DXR-8 (no WiFi = no hacking risk)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Blackout blinds / curtains <span class="priority must">Must</span></div>
+            <div class="item-note">Critical for daytime naps and early morning wake-ups. Portable travel ones are great too.
+              <br/><span class="rec indigo">Pick: Gro Anywhere Blind (travel)</span>
+              <span class="rec teal">Permanent: IKEA Majgull</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- FEEDING -->
+    <!-- ══════════════════════════════════════ -->
+    <section class="category" id="feeding">
+      <div class="category-header">
+        <div class="cat-icon indigo">🍼</div>
+        <div class="cat-title-wrap">
+          <span class="cat-label">Category 02</span>
+          <span class="cat-title">Feeding</span>
+        </div>
+        <span class="cat-progress" id="prog-feeding"></span>
+      </div>
+      <p class="section-intro">Breastfeeding, formula, or combo — your list will look different depending on your plan. Buy bottles even if breastfeeding; having options matters when you're exhausted.</p>
+      <div class="item-list" data-cat="feeding">
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Breast pump <span class="priority must">Must</span></div>
+            <div class="item-note">Even if you plan to primarily breastfeed, a pump gives you flexibility. Wearable pumps are a revelation for working mums. Check if it's covered by your health insurance.
+              <br/><span class="rec gold">Wearable: Elvie Stride</span>
+              <span class="rec indigo">Workhorse: Medela Pump In Style</span>
+              <span class="rec teal">Budget: Spectra S2</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Nursing/feeding pillow <span class="priority must">Must</span></div>
+            <div class="item-note">Saves your back during feeding sessions. Also useful as a tummy-time prop later.
+              <br/><span class="rec indigo">Pick: Boppy Original</span>
+              <span class="rec teal">Alt: My Brest Friend</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Bottles (4–6) <span class="priority must">Must</span></div>
+            <div class="item-note">Start with smaller 150ml bottles, then move to 250ml. Anti-colic designs reduce fussiness. Try 1–2 types before buying a full set.
+              <br/><span class="rec indigo">Anti-colic: Dr. Brown's Options+</span>
+              <span class="rec teal">Simple: Tommee Tippee Closer to Nature</span>
+              <span class="rec gold">Breastfed babies: Nanobebe</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Haakaa / silicone pump <span class="priority nice">Nice</span></div>
+            <div class="item-note">Catches letdown on the opposite breast during feeding. Builds a freezer stash passively. Cheap and wildly useful.
+              <br/><span class="rec teal">Pick: Haakaa Gen 2 (150ml)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Bottle steriliser <span class="priority must">Must</span></div>
+            <div class="item-note">Microwave or electric steam sterilisers are fastest. Or use a dishwasher + boiling water. Don't overthink it.
+              <br/><span class="rec indigo">Pick: Philips Avent 3-in-1</span>
+              <span class="rec teal">Budget: Tommee Tippee Microwave</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Nursing bras (3–4) <span class="priority must">Must</span></div>
+            <div class="item-note">Get fitted in the last trimester — your size will change. Sleep nursing bras are different from day bras; get both.
+              <br/><span class="rec indigo">Pick: Cake Maternity</span>
+              <span class="rec teal">Budget: Kindred Bravely</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Breast pads (disposable or reusable) <span class="priority must">Must</span></div>
+            <div class="item-note">You'll go through these constantly in the first weeks. Stock up before birth.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">High chair <span class="priority must">Must</span></div>
+            <div class="item-note">Not needed until ~6 months (weaning). Can wait a little. Look for one that's easy to clean — avoid fabric seat pads.
+              <br/><span class="rec gold">Pick: Stokke Tripp Trapp (grows to adult)</span>
+              <span class="rec indigo">Budget: IKEA Antilop</span>
+              <span class="rec teal">Compact: Joie Mimzy Snacker</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Muslin squares (10+) <span class="priority must">Must</span></div>
+            <div class="item-note">The single most versatile thing you'll buy. Burp cloth, makeshift swaddle, shade cloth, changing mat cover, drool catcher. Buy more than you think you need.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Formula (one starter tin) <span class="priority nice">Nice</span></div>
+            <div class="item-note">Even if breastfeeding, having a tin on hand removes stress. Don't over-buy a brand before baby arrives — some babies are fussy about formula.
+              <br/><span class="rec indigo">Pick: Kendamil Organic</span>
+              <span class="rec teal">Alt: HiPP Combiotic</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- DIAPERING -->
+    <!-- ══════════════════════════════════════ -->
+    <section class="category" id="diapering">
+      <div class="category-header">
+        <div class="cat-icon teal">🧷</div>
+        <div class="cat-title-wrap">
+          <span class="cat-label">Category 03</span>
+          <span class="cat-title">Diapering</span>
+        </div>
+        <span class="cat-progress" id="prog-diapering"></span>
+      </div>
+      <p class="section-intro">You'll do roughly 8–12 nappy changes per day in the early weeks. Set up a comfortable changing station — it's worth it.</p>
+      <div class="item-list" data-cat="diapering">
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Nappies / diapers — newborn + size 1 (small stock) <span class="priority must">Must</span></div>
+            <div class="item-note">Don't overbuy newborn size — babies grow fast. Get 1–2 packs of newborn, then a larger stock of size 1.
+              <br/><span class="rec gold">Pick: Pampers Pure</span>
+              <span class="rec indigo">Budget: Mamia (Aldi)</span>
+              <span class="rec teal">Eco: Naty or Kit & Kin</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Baby wipes (unscented, water-based) <span class="priority must">Must</span></div>
+            <div class="item-note">Buy in bulk. WaterWipes are popular for newborns' sensitive skin; cheaper alternatives work fine once skin settles.
+              <br/><span class="rec indigo">Pick: WaterWipes</span>
+              <span class="rec teal">Budget: Pampers Sensitive</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Changing mat <span class="priority must">Must</span></div>
+            <div class="item-note">A waterproof mat that wipes clean — not a padded one that absorbs mess. Get 2 if you want one upstairs and one downstairs.
+              <br/><span class="rec teal">Pick: Lindam Safety First</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Nappy cream / barrier cream <span class="priority must">Must</span></div>
+            <div class="item-note">Use at every change to prevent nappy rash. Zinc oxide-based creams are most effective.
+              <br/><span class="rec indigo">Pick: Bepanthen Nappy Rash Ointment</span>
+              <span class="rec teal">Alt: Sudocrem</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Nappy bin / nappy sacks <span class="priority nice">Nice</span></div>
+            <div class="item-note">A dedicated nappy bin kills the smell. Not essential if you have a lidded bin nearby and empty often. Nappy sacks are a cheaper alternative.
+              <br/><span class="rec indigo">Pick: Tommee Tippee Sangenic</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Nappy changing bag <span class="priority must">Must</span></div>
+            <div class="item-note">Something with multiple compartments, a wipe-clean interior, and ideally a built-in changing mat. Doesn't need to say "baby bag."
+              <br/><span class="rec gold">Pick: Béaba Geneva</span>
+              <span class="rec indigo">Budget: Mamas & Papas</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- CLOTHING -->
+    <!-- ══════════════════════════════════════ -->
+    <section class="category" id="clothing">
+      <div class="category-header">
+        <div class="cat-icon indigo">👕</div>
+        <div class="cat-title-wrap">
+          <span class="cat-label">Category 04</span>
+          <span class="cat-title">Clothing</span>
+        </div>
+        <span class="cat-progress" id="prog-clothing"></span>
+      </div>
+      <p class="section-intro">Buy less than you think. Babies grow out of sizes in weeks, not months. Prioritise easy access for nappy changes: popper-front or envelope-neck designs.</p>
+      <div class="item-list" data-cat="clothing">
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Sleepsuits / babygrows (7–10) <span class="priority must">Must</span></div>
+            <div class="item-note">The workwear of babies. Get mostly 0–3m; a couple of newborn just in case. Zip-up styles are much faster at 3am than poppers.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Onesies / bodysuits (6–8) <span class="priority must">Must</span></div>
+            <div class="item-note">Goes under everything. Envelope neck (not just round neck) makes getting them on and off much easier.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Socks (6–8 pairs) <span class="priority must">Must</span></div>
+            <div class="item-note">They fall off constantly. Buy more than you think. Anti-slip soles matter once they start standing.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Scratch mitts (2–3 pairs) <span class="priority must">Must</span></div>
+            <div class="item-note">Newborns have sharp nails and no coordination. Mitts prevent face-scratching in the early weeks.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Hat (2–3) <span class="priority must">Must</span></div>
+            <div class="item-note">Hospitals and midwives will want a hat on the baby immediately. Newborns lose heat through their heads quickly.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Cardigan / light jacket (2) <span class="priority nice">Nice</span></div>
+            <div class="item-note">For layering — useful when going in and out of shops or cars. Avoid bulky snowsuits with car seat buckling.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Going-home outfit <span class="priority nice">Nice</span></div>
+            <div class="item-note">Mostly for photos. Make it practical — easy poppers, warm enough for the season. Don't overthink it.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- BATHING -->
+    <!-- ══════════════════════════════════════ -->
+    <section class="category" id="bathing">
+      <div class="category-header">
+        <div class="cat-icon teal">🛁</div>
+        <div class="cat-title-wrap">
+          <span class="cat-label">Category 05</span>
+          <span class="cat-title">Bathing</span>
+        </div>
+        <span class="cat-progress" id="prog-bathing"></span>
+      </div>
+      <p class="section-intro">Newborns only need bathing 2–3 times a week. Keep it simple — a tub insert, a few essentials, and you're set.</p>
+      <div class="item-list" data-cat="bathing">
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Baby bath tub or bath support <span class="priority must">Must</span></div>
+            <div class="item-note">A dedicated tub is safest for newborns. Look for one with a newborn insert that props them up safely.
+              <br/><span class="rec indigo">Pick: Angelcare Baby Bath Support</span>
+              <span class="rec teal">Alt: Stokke Flexi Bath</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Baby wash & shampoo <span class="priority must">Must</span></div>
+            <div class="item-note">Fragrance-free, pH neutral formulas. Avoid anything with SLS in the early months.
+              <br/><span class="rec indigo">Pick: Childs Farm Baby Wash</span>
+              <span class="rec teal">Alt: Weleda Calendula</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Hooded towels (2) <span class="priority must">Must</span></div>
+            <div class="item-note">Keeps baby's head warm immediately after the bath. Larger than you think they need — babies grow into them fast.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Soft washcloths (4–6) <span class="priority must">Must</span></div>
+            <div class="item-note">For face washes between baths too. Cotton muslin works just as well as dedicated baby ones.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Baby nail file / clippers <span class="priority must">Must</span></div>
+            <div class="item-note">Newborn nails are razor-sharp and grow fast. An electric nail file (like the Frida Baby) is far easier than clippers for tiny newborn nails.
+              <br/><span class="rec teal">Pick: Frida Baby NailFrida</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Baby moisturiser <span class="priority nice">Nice</span></div>
+            <div class="item-note">Newborns often have dry, peeling skin — totally normal. An unfragranced lotion helps if skin is particularly dry.
+              <br/><span class="rec indigo">Pick: Aveeno Baby Daily Moisture</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- TRAVEL -->
+    <!-- ══════════════════════════════════════ -->
+    <section class="category" id="travel">
+      <div class="category-header">
+        <div class="cat-icon indigo">🚗</div>
+        <div class="cat-title-wrap">
+          <span class="cat-label">Category 06</span>
+          <span class="cat-title">Travel &amp; On the Go</span>
+        </div>
+        <span class="cat-progress" id="prog-travel"></span>
+      </div>
+      <p class="section-intro">The car seat is legally required and non-negotiable. The pram is the biggest investment — try before you buy and check it fits in your car boot.</p>
+      <div class="item-list" data-cat="travel">
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Infant car seat (Group 0+) <span class="priority must">Must</span></div>
+            <div class="item-note">Cannot leave the hospital without one. Must be rear-facing. ISOFIX is significantly safer and easier than belt-only. Check compatibility with your car.
+              <br/><span class="rec gold">Pick: Cybex Cloud T i-Size (rotating)</span>
+              <span class="rec indigo">Alt: Maxi-Cosi Pebble 360</span>
+              <span class="rec teal">Budget: Joie i-Gemm 3</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Pram / pushchair <span class="priority must">Must</span></div>
+            <div class="item-note">The biggest decision. Think about: boot space, terrain you'll cover, and whether you want it from birth or just for older babies. Travel systems (pram + car seat) reduce transfer faff.
+              <br/><span class="rec gold">Pick: UPPAbaby Vista V3 (grows with child)</span>
+              <span class="rec indigo">Urban: Bugaboo Fox 5</span>
+              <span class="rec teal">Budget: Joie Versatrax</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Baby carrier / sling <span class="priority must">Must</span></div>
+            <div class="item-note">Keeps baby calm and your hands free. Soft structured carriers (SSC) are easier for beginners; ring slings are more compact. Check ergonomic positioning (M-shape legs).
+              <br/><span class="rec gold">Pick: Ergobaby Omni 360</span>
+              <span class="rec indigo">Structured: BabyBjörn One Air</span>
+              <span class="rec teal">Wrap: Stretchy wrap for newborns</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Rain cover for pram <span class="priority must">Must</span></div>
+            <div class="item-note">If you're in a rainy climate, this is non-negotiable. Check it's compatible with your pram model.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Sunshade / parasol for pram <span class="priority nice">Nice</span></div>
+            <div class="item-note">Clip-on pram parasols provide better shade than built-in hoods. Check UPF rating.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Portable travel cot <span class="priority nice">Nice</span></div>
+            <div class="item-note">If you'll travel or visit family. Many double as a playard. Don't buy one just for the house.
+              <br/><span class="rec indigo">Pick: Joie Kubbie Go</span>
+              <span class="rec teal">Alt: BabyBjörn Travel Cot Light</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- HEALTH -->
+    <!-- ══════════════════════════════════════ -->
+    <section class="category" id="health">
+      <div class="category-header">
+        <div class="cat-icon teal">🩺</div>
+        <div class="cat-title-wrap">
+          <span class="cat-label">Category 07</span>
+          <span class="cat-title">Health &amp; Safety</span>
+        </div>
+        <span class="cat-progress" id="prog-health"></span>
+      </div>
+      <p class="section-intro">A few essentials to handle common situations confidently at home without an emergency GP visit.</p>
+      <div class="item-list" data-cat="health">
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Digital thermometer <span class="priority must">Must</span></div>
+            <div class="item-note">A rectal thermometer is most accurate for newborns but any fast-reading digital model works. Forehead strip thermometers are inaccurate — avoid.
+              <br/><span class="rec indigo">Pick: Braun ThermoScan 7 (ear)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Infant paracetamol & ibuprofen <span class="priority must">Must</span></div>
+            <div class="item-note">Stock before baby arrives — you don't want to be out at midnight. Check age/weight limits on the packaging.
+              <br/><span class="rec teal">Note: ibuprofen only from 3 months+</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Nasal aspirator <span class="priority must">Must</span></div>
+            <div class="item-note">Babies can't blow their nose. A blocked nose means they can't feed. The Frida NoseFrida (snot sucker) is the cult pick — it sounds gross but parents swear by it.
+              <br/><span class="rec teal">Pick: Frida Baby NoseFrida</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Saline nasal drops <span class="priority must">Must</span></div>
+            <div class="item-note">Helps clear congestion before using the aspirator. Use sterile saline only.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Baby first aid kit <span class="priority must">Must</span></div>
+            <div class="item-note">Plasters, gauze, antiseptic wipes, tweezers, oral syringe for medicines. Pre-made kits are convenient or build your own.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Stair gates (2) <span class="priority nice">Nice</span></div>
+            <div class="item-note">Not needed until 6–9 months when baby starts moving. Top of stairs is critical. Pressure-mounted gates are fine for bottom of stairs; screw-fixed only at the top.
+              <br/><span class="rec indigo">Pick: Dreambaby Retractable Gate</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Socket covers + corner guards <span class="priority nice">Nice</span></div>
+            <div class="item-note">Again, not urgent for newborns but plan ahead. Do a room audit before they become mobile.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Colic/wind drops <span class="priority nice">Nice</span></div>
+            <div class="item-note">Infacol or Gripe Water can help with wind pain — evidence is mixed, but many parents find it helpful.
+              <br/><span class="rec teal">Pick: Infacol (from birth)</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- PLAY -->
+    <!-- ══════════════════════════════════════ -->
+    <section class="category" id="play">
+      <div class="category-header">
+        <div class="cat-icon indigo">🧸</div>
+        <div class="cat-title-wrap">
+          <span class="cat-label">Category 08</span>
+          <span class="cat-title">Play &amp; Development</span>
+        </div>
+        <span class="cat-progress" id="prog-play"></span>
+      </div>
+      <p class="section-intro">Babies don't need much in the early weeks. Faces are their favourite toy. But a few items make a big difference for your sanity and their development.</p>
+      <div class="item-list" data-cat="play">
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Play mat with arch / activity gym <span class="priority must">Must</span></div>
+            <div class="item-note">Essential for tummy time and independent play from about 6 weeks. Look for high-contrast patterns (babies can't see colour yet).
+              <br/><span class="rec gold">Pick: Lovevery Play Gym</span>
+              <span class="rec indigo">Budget: Skip Hop Explore & More</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Baby bouncer <span class="priority must">Must</span></div>
+            <div class="item-note">A safe spot to put baby down while you eat/shower. Babies love gentle bouncing. Look for one with recline settings.
+              <br/><span class="rec gold">Pick: Babybjörn Bouncer Bliss</span>
+              <span class="rec indigo">Budget: Fisher-Price Infant-to-Toddler Rocker</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Swing / rocker (electric) <span class="priority nice">Nice</span></div>
+            <div class="item-note">Some babies love swings, others couldn't care less. A game-changer for colicky babies. Try before buying if possible — they take up a lot of space.
+              <br/><span class="rec teal">Pick: 4moms MamaRoo 4</span>
+              <span class="rec indigo">Budget: Fisher-Price Sweet Snugapuppy</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">High-contrast books (board books) <span class="priority nice">Nice</span></div>
+            <div class="item-note">Black and white patterns stimulate newborn vision from day one. Simple and cheap.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Rattles / soft toys <span class="priority nice">Nice</span></div>
+            <div class="item-note">Simple, lightweight rattles and soft toys for grasping. Don't overbuy — you'll receive plenty as gifts.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Teething toys <span class="priority nice">Nice</span></div>
+            <div class="item-note">Not needed until 4–6 months when teething begins. Have some ready by then.
+              <br/><span class="rec teal">Pick: Sophie la Girafe (classic)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Dummy / pacifier (2–3) <span class="priority nice">Nice</span></div>
+            <div class="item-note">Evidence shows dummies can reduce SIDS risk. Orthodontic designs are better for teeth. Introduce after breastfeeding is established (3–4 weeks).
+              <br/><span class="rec indigo">Pick: Philips Avent Soothie</span>
+              <span class="rec teal">Alt: BIBS (popular aesthetically)</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- NURSERY -->
+    <!-- ══════════════════════════════════════ -->
+    <section class="category" id="nursery">
+      <div class="category-header">
+        <div class="cat-icon teal">🏠</div>
+        <div class="cat-title-wrap">
+          <span class="cat-label">Category 09</span>
+          <span class="cat-title">Nursery</span>
+        </div>
+        <span class="cat-progress" id="prog-nursery"></span>
+      </div>
+      <p class="section-intro">The nursery doesn't need to be perfect before baby arrives. But a few things make night feeds much less brutal.</p>
+      <div class="item-list" data-cat="nursery">
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Nursing / glider chair <span class="priority must">Must</span></div>
+            <div class="item-note">You will spend hundreds of hours in this chair. Get one that's comfortable for your height, easy to clean, and ideally rocks or glides. Don't skip this.
+              <br/><span class="rec gold">Pick: Dutailier Glider</span>
+              <span class="rec indigo">Budget: IKEA Poäng (add cushion)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Chest of drawers / wardrobe <span class="priority must">Must</span></div>
+            <div class="item-note">The IKEA Hemnes or Sundvik range works well and doubles as a changing table with a mat on top — saving you buying a separate unit.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Night light (amber/red) <span class="priority must">Must</span></div>
+            <div class="item-note">Lets you navigate for night feeds without waking yourself up fully. Amber or red light doesn't disrupt melatonin like white/blue light.
+              <br/><span class="rec indigo">Pick: Hatch Rest (adjustable colour)</span>
+              <span class="rec teal">Budget: IKEA Spoka or a simple plug-in amber light</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Room thermometer <span class="priority must">Must</span></div>
+            <div class="item-note">Ideal nursery temperature is 16–20°C. A simple digital one costs next to nothing and removes the guesswork on what to dress baby in for sleep.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Humidifier <span class="priority nice">Nice</span></div>
+            <div class="item-note">Particularly useful in winter when heating dries out the air. Helps with congestion too. Use distilled water to prevent mould.
+              <br/><span class="rec indigo">Pick: Frida Baby 3-in-1 Humidifier</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Storage baskets / organiser <span class="priority nice">Nice</span></div>
+            <div class="item-note">For nappies, wipes, and small items at the changing station. Having everything in reach saves you mid-change disasters.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggle(this)">
+          <div class="check-box"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8.5 10.5,1.5"/></svg></div>
+          <div class="item-body">
+            <div class="item-name">Laundry hamper <span class="priority nice">Nice</span></div>
+            <div class="item-note">Baby clothes are small but plentiful. A dedicated hamper for the nursery keeps things contained.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Field Notes · Baby Gear · Mar 2026</p>
+    <p style="margin-top:6px; opacity:0.6;">Your progress is saved automatically in your browser.</p>
+  </footer>
+
+  <script>
+    const STORAGE_KEY = 'baby-shopping-v1';
+
+    // Load saved state
+    function loadState() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+      catch { return {}; }
+    }
+
+    function saveState(state) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    // Generate a stable ID for each item based on its name text
+    function itemId(el) {
+      return el.querySelector('.item-name').textContent.trim().slice(0, 40);
+    }
+
+    function toggle(el) {
+      el.classList.toggle('checked');
+      const state = loadState();
+      state[itemId(el)] = el.classList.contains('checked');
+      saveState(state);
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const allItems = document.querySelectorAll('.item');
+      const checked = document.querySelectorAll('.item.checked');
+      const total = allItems.length;
+      const done = checked.length;
+
+      // Global
+      document.getElementById('global-count').textContent = `${done} / ${total}`;
+      document.getElementById('global-bar').style.width = total ? `${(done/total)*100}%` : '0%';
+
+      // Per category
+      document.querySelectorAll('.item-list').forEach(list => {
+        const cat = list.dataset.cat;
+        const catItems = list.querySelectorAll('.item');
+        const catDone = list.querySelectorAll('.item.checked');
+        const el = document.getElementById(`prog-${cat}`);
+        if (el) el.textContent = `${catDone.length} / ${catItems.length}`;
+      });
+    }
+
+    function clearAll() {
+      if (!confirm('Reset all checked items?')) return;
+      document.querySelectorAll('.item.checked').forEach(el => el.classList.remove('checked'));
+      localStorage.removeItem(STORAGE_KEY);
+      updateProgress();
+    }
+
+    // Init: restore state
+    function init() {
+      const state = loadState();
+      document.querySelectorAll('.item').forEach(el => {
+        if (state[itemId(el)]) el.classList.add('checked');
+      });
+      updateProgress();
+    }
+
+    init();
+  </script>
+
+</body>
+</html>
