@@ -1,257 +1,305 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Robot Hovers Comparison</title>
+  <title>Field Notes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1612;
+      --paper: #f5f0e8;
+      --cream: #ede8dc;
+      --accent: #c84b2f;
+      --accent-light: #e8715a;
+      --muted: #7a6f62;
+      --border: #d4c9b8;
+      --card-bg: #faf7f2;
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #0f0f1a;
-      color: #e0e0f0;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
       min-height: 100vh;
-      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ── */
+    header {
+      padding: 64px 40px 56px;
+      max-width: 960px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
     }
 
     h1 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 8px;
-      color: #a0c4ff;
-      letter-spacing: 2px;
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      line-height: 1.0;
+      letter-spacing: -0.01em;
+      margin-bottom: 20px;
+      animation: fadeUp 0.7s ease both;
     }
 
-    .subtitle {
-      text-align: center;
-      color: #6a7aaa;
-      margin-bottom: 48px;
-      font-size: 0.95rem;
+    h1 em {
+      font-style: italic;
+      color: var(--muted);
     }
 
+    .tagline {
+      font-size: 1rem;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 44ch;
+      line-height: 1.6;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      padding: 0 40px 80px;
+      max-width: 960px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .section-meta {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      margin-bottom: 32px;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .count {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--border);
+    }
+
+    /* ── CARDS ── */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 32px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .card {
-      background: #1a1a2e;
-      border: 1px solid #2a2a4a;
-      border-radius: 16px;
-      padding: 32px 20px 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 16px;
     }
 
-    .card h2 {
-      font-size: 0.85rem;
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 32px 28px 28px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      transition: box-shadow 0.2s, transform 0.2s;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .card:hover {
+      box-shadow: 5px 5px 0 var(--border);
+      transform: translate(-2px, -2px);
+    }
+
+    .card-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: #7a8aaa;
+      color: var(--accent);
+    }
+
+    .card h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.45rem;
+      line-height: 1.2;
+      font-weight: 400;
     }
 
     .card p {
-      font-size: 0.8rem;
-      color: #555577;
-      text-align: center;
-      line-height: 1.5;
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+      flex: 1;
     }
 
-    /* ── Robot SVG base ── */
-    .robot {
-      width: 80px;
-      height: 80px;
-      cursor: pointer;
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      margin-top: 4px;
     }
 
-    /* ── 1. Scale up ── */
-    .hover-scale .robot {
-      transition: transform 0.2s ease;
-    }
-    .hover-scale:hover .robot {
-      transform: scale(1.3);
+    .card-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--border);
     }
 
-    /* ── 2. Float ── */
-    .hover-float .robot {
-      animation: none;
-      transition: transform 0.3s ease;
-    }
-    .hover-float:hover .robot {
-      animation: float 1.5s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-14px); }
+    .card-arrow {
+      font-size: 1.1rem;
+      color: var(--border);
+      transition: color 0.2s, transform 0.2s;
     }
 
-    /* ── 3. Spin ── */
-    .hover-spin .robot {
-      transition: transform 0.5s ease;
-    }
-    .hover-spin:hover .robot {
-      transform: rotate(360deg);
+    .card:hover .card-arrow {
+      color: var(--accent);
+      transform: translate(3px, -3px);
     }
 
-    /* ── 4. Shake ── */
-    .hover-shake .robot {
-      transition: transform 0.1s ease;
-    }
-    .hover-shake:hover .robot {
-      animation: shake 0.4s ease infinite;
-    }
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25%       { transform: translateX(-6px) rotate(-5deg); }
-      75%       { transform: translateX(6px) rotate(5deg); }
+    /* ── PLACEHOLDER CARD ── */
+    .card-placeholder {
+      border: 1px dashed var(--border);
+      background: transparent;
+      cursor: default;
+      opacity: 0.5;
     }
 
-    /* ── 5. Glow ── */
-    .hover-glow .robot {
-      transition: filter 0.3s ease;
-    }
-    .hover-glow:hover .robot {
-      filter: drop-shadow(0 0 12px #60cfff) drop-shadow(0 0 24px #60cfff88);
+    .card-placeholder:hover {
+      box-shadow: none;
+      transform: none;
     }
 
-    /* ── 6. Flip ── */
-    .hover-flip {
-      perspective: 400px;
+    .card-placeholder h2 {
+      color: var(--muted);
     }
-    .hover-flip .robot {
-      transition: transform 0.5s ease;
+
+    .card-placeholder .card-arrow {
+      display: none;
     }
-    .hover-flip:hover .robot {
-      transform: rotateY(180deg);
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 40px;
+      max-width: 960px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--border);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card:nth-child(1) { animation-delay: 0.15s; }
+    .card:nth-child(2) { animation-delay: 0.22s; }
+    .card:nth-child(3) { animation-delay: 0.29s; }
+    .card:nth-child(4) { animation-delay: 0.36s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      header { padding: 48px 24px 40px; }
+      main { padding: 0 24px 64px; }
+      footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
     }
   </style>
 </head>
 <body>
 
-  <h1>Robot Hovers</h1>
-  <p class="subtitle">Hover over each robot to see the effect</p>
+  <header>
+    <div class="logo">Field Notes</div>
+    <h1>Research<br/><em>before</em><br/>the decision.</h1>
+    <p class="tagline">A personal collection of deep-dives, comparisons, and guides compiled before making big (and not so big) life choices.</p>
+  </header>
 
-  <div class="grid">
-
-    <!-- Scale -->
-    <div class="card hover-scale">
-      <h2>Scale</h2>
-      <svg class="robot" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-        <rect x="20" y="28" width="40" height="30" rx="6" fill="#4a90d9"/>
-        <rect x="28" y="14" width="24" height="18" rx="5" fill="#357abf"/>
-        <circle cx="34" cy="43" r="5" fill="#a0d8f1"/>
-        <circle cx="46" cy="43" r="5" fill="#a0d8f1"/>
-        <rect x="35" y="51" width="10" height="3" rx="1.5" fill="#1a3a5a"/>
-        <rect x="14" y="34" width="8" height="16" rx="4" fill="#357abf"/>
-        <rect x="58" y="34" width="8" height="16" rx="4" fill="#357abf"/>
-        <rect x="28" y="58" width="10" height="12" rx="4" fill="#357abf"/>
-        <rect x="42" y="58" width="10" height="12" rx="4" fill="#357abf"/>
-        <rect x="36" y="10" width="8" height="6" rx="3" fill="#60cfff"/>
-      </svg>
-      <p>Grows on hover using CSS <code>scale()</code></p>
+  <main>
+    <div class="section-meta">
+      <span class="section-label">Notes</span>
+      <span class="count">01 published</span>
     </div>
 
-    <!-- Float -->
-    <div class="card hover-float">
-      <h2>Float</h2>
-      <svg class="robot" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-        <rect x="20" y="28" width="40" height="30" rx="6" fill="#7b5ea7"/>
-        <rect x="28" y="14" width="24" height="18" rx="5" fill="#5e4080"/>
-        <circle cx="34" cy="43" r="5" fill="#d4b8f0"/>
-        <circle cx="46" cy="43" r="5" fill="#d4b8f0"/>
-        <rect x="35" y="51" width="10" height="3" rx="1.5" fill="#2a1a40"/>
-        <rect x="14" y="34" width="8" height="16" rx="4" fill="#5e4080"/>
-        <rect x="58" y="34" width="8" height="16" rx="4" fill="#5e4080"/>
-        <rect x="28" y="58" width="10" height="12" rx="4" fill="#5e4080"/>
-        <rect x="42" y="58" width="10" height="12" rx="4" fill="#5e4080"/>
-        <rect x="36" y="10" width="8" height="6" rx="3" fill="#c084fc"/>
-      </svg>
-      <p>Bobs up and down with a looping animation</p>
-    </div>
+    <div class="grid">
 
-    <!-- Spin -->
-    <div class="card hover-spin">
-      <h2>Spin</h2>
-      <svg class="robot" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-        <rect x="20" y="28" width="40" height="30" rx="6" fill="#d97a4a"/>
-        <rect x="28" y="14" width="24" height="18" rx="5" fill="#b85e30"/>
-        <circle cx="34" cy="43" r="5" fill="#ffd6b0"/>
-        <circle cx="46" cy="43" r="5" fill="#ffd6b0"/>
-        <rect x="35" y="51" width="10" height="3" rx="1.5" fill="#3a1a00"/>
-        <rect x="14" y="34" width="8" height="16" rx="4" fill="#b85e30"/>
-        <rect x="58" y="34" width="8" height="16" rx="4" fill="#b85e30"/>
-        <rect x="28" y="58" width="10" height="12" rx="4" fill="#b85e30"/>
-        <rect x="42" y="58" width="10" height="12" rx="4" fill="#b85e30"/>
-        <rect x="36" y="10" width="8" height="6" rx="3" fill="#ffaa60"/>
-      </svg>
-      <p>Full 360° rotation on hover</p>
-    </div>
+      <!-- LIVE: Robot Vacuums -->
+      <a class="card" href="./robot-vacuums/">
+        <span class="card-tag">Home · Gadgets</span>
+        <h2>Robot Vacuum Guide 2025</h2>
+        <p>Thorough Reddit-sourced research on the best self-emptying robot vacuums right now. Navigation, mopping, low maintenance — what's actually worth buying.</p>
+        <div class="card-footer">
+          <span class="card-date">Mar 2026</span>
+          <span class="card-arrow">↗</span>
+        </div>
+      </a>
 
-    <!-- Shake -->
-    <div class="card hover-shake">
-      <h2>Shake</h2>
-      <svg class="robot" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-        <rect x="20" y="28" width="40" height="30" rx="6" fill="#4aaa7a"/>
-        <rect x="28" y="14" width="24" height="18" rx="5" fill="#318a5e"/>
-        <circle cx="34" cy="43" r="5" fill="#b0f0d0"/>
-        <circle cx="46" cy="43" r="5" fill="#b0f0d0"/>
-        <rect x="35" y="51" width="10" height="3" rx="1.5" fill="#0a2a1a"/>
-        <rect x="14" y="34" width="8" height="16" rx="4" fill="#318a5e"/>
-        <rect x="58" y="34" width="8" height="16" rx="4" fill="#318a5e"/>
-        <rect x="28" y="58" width="10" height="12" rx="4" fill="#318a5e"/>
-        <rect x="42" y="58" width="10" height="12" rx="4" fill="#318a5e"/>
-        <rect x="36" y="10" width="8" height="6" rx="3" fill="#60ffaa"/>
-      </svg>
-      <p>Wiggles side to side frantically</p>
-    </div>
+      <!-- PLACEHOLDER: Baby Sleep -->
+      <div class="card card-placeholder">
+        <span class="card-tag">Baby · Sleep</span>
+        <h2>Baby Sleep Methods</h2>
+        <p>Coming soon — comparing sleep training approaches, schedules, and what actually works according to parents in the trenches.</p>
+        <div class="card-footer">
+          <span class="card-date">Upcoming</span>
+        </div>
+      </div>
 
-    <!-- Glow -->
-    <div class="card hover-glow">
-      <h2>Glow</h2>
-      <svg class="robot" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-        <rect x="20" y="28" width="40" height="30" rx="6" fill="#2a6080"/>
-        <rect x="28" y="14" width="24" height="18" rx="5" fill="#1a4a60"/>
-        <circle cx="34" cy="43" r="5" fill="#60cfff"/>
-        <circle cx="46" cy="43" r="5" fill="#60cfff"/>
-        <rect x="35" y="51" width="10" height="3" rx="1.5" fill="#001a2a"/>
-        <rect x="14" y="34" width="8" height="16" rx="4" fill="#1a4a60"/>
-        <rect x="58" y="34" width="8" height="16" rx="4" fill="#1a4a60"/>
-        <rect x="28" y="58" width="10" height="12" rx="4" fill="#1a4a60"/>
-        <rect x="42" y="58" width="10" height="12" rx="4" fill="#1a4a60"/>
-        <rect x="36" y="10" width="8" height="6" rx="3" fill="#00eeff"/>
-      </svg>
-      <p>Neon glow via CSS <code>drop-shadow</code> filter</p>
-    </div>
+      <!-- PLACEHOLDER: Baby Shopping -->
+      <div class="card card-placeholder">
+        <span class="card-tag">Baby · Gear</span>
+        <h2>Baby Gear Shopping List</h2>
+        <p>Coming soon — cutting through the noise on what you actually need vs. what's a waste of money.</p>
+        <div class="card-footer">
+          <span class="card-date">Upcoming</span>
+        </div>
+      </div>
 
-    <!-- Flip -->
-    <div class="card hover-flip">
-      <h2>Flip</h2>
-      <svg class="robot" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-        <rect x="20" y="28" width="40" height="30" rx="6" fill="#aa4a7a"/>
-        <rect x="28" y="14" width="24" height="18" rx="5" fill="#882a5a"/>
-        <circle cx="34" cy="43" r="5" fill="#f0b0d4"/>
-        <circle cx="46" cy="43" r="5" fill="#f0b0d4"/>
-        <rect x="35" y="51" width="10" height="3" rx="1.5" fill="#2a001a"/>
-        <rect x="14" y="34" width="8" height="16" rx="4" fill="#882a5a"/>
-        <rect x="58" y="34" width="8" height="16" rx="4" fill="#882a5a"/>
-        <rect x="28" y="58" width="10" height="12" rx="4" fill="#882a5a"/>
-        <rect x="42" y="58" width="10" height="12" rx="4" fill="#882a5a"/>
-        <rect x="36" y="10" width="8" height="6" rx="3" fill="#ff60aa"/>
-      </svg>
-      <p>Horizontal 3D flip using <code>rotateY</code></p>
     </div>
+  </main>
 
-  </div>
+  <footer>
+    <span>tgmendes · field-notes</span>
+    <span>github.io</span>
+  </footer>
 
 </body>
 </html>
