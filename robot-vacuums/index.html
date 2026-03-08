@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Robot Vacuum Guide 2025 — Reddit Research</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1612;
+      --paper: #f5f0e8;
+      --cream: #ede8dc;
+      --accent: #c84b2f;
+      --accent-light: #e8715a;
+      --gold: #b8960c;
+      --muted: #7a6f62;
+      --border: #d4c9b8;
+      --card-bg: #faf7f2;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--paper);
+      color: var(--ink);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 80px 24px 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 18px,
+        rgba(255,255,255,0.03) 18px,
+        rgba(255,255,255,0.03) 19px
+      );
+      pointer-events: none;
+    }
+
+    .header-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 20px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      line-height: 1.1;
+      max-width: 700px;
+      margin: 0 auto 20px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    header h1 em {
+      font-style: italic;
+      color: var(--accent-light);
+    }
+
+    .header-sub {
+      font-size: 1.05rem;
+      color: rgba(245,240,232,0.65);
+      max-width: 520px;
+      margin: 0 auto;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--cream);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 0;
+      max-width: 900px;
+      margin: 0 auto;
+      overflow-x: auto;
+    }
+
+    nav a {
+      display: block;
+      padding: 16px 20px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--muted);
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 72px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      line-height: 1.15;
+      margin-bottom: 28px;
+    }
+
+    p {
+      color: #3a342c;
+      max-width: 68ch;
+      margin-bottom: 16px;
+    }
+
+    /* ── VERDICT STRIP ── */
+    .verdict-strip {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 48px 24px;
+      text-align: center;
+    }
+
+    .verdict-strip p {
+      color: rgba(245,240,232,0.8);
+      max-width: 620px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+    }
+
+    .verdict-strip strong {
+      color: var(--accent-light);
+    }
+
+    /* ── CARDS ── */
+    .card-grid {
+      display: grid;
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 36px 36px 32px;
+      position: relative;
+      transition: box-shadow 0.25s;
+    }
+
+    .card:hover {
+      box-shadow: 4px 4px 0 var(--border);
+    }
+
+    .card-rank {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      font-family: 'DM Serif Display', serif;
+      font-size: 3.5rem;
+      color: var(--border);
+      line-height: 1;
+      user-select: none;
+    }
+
+    .card-badge {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+      margin-bottom: 14px;
+    }
+
+    .badge-gold   { background: #fdf3cc; color: var(--gold);   border: 1px solid #e8d170; }
+    .badge-silver { background: #eeeae4; color: #6a6055;       border: 1px solid var(--border); }
+    .badge-bronze { background: #fef0ea; color: var(--accent); border: 1px solid #f2c4b4; }
+    .badge-mention{ background: #e8f0f5; color: #2c6080;       border: 1px solid #b8d4e4; }
+
+    .card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      margin-bottom: 4px;
+    }
+
+    .card-price {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
+
+    .card-verdict {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .card-verdict strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    /* ── PROS/CONS ── */
+    .pros-cons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    @media (max-width: 500px) {
+      .pros-cons { grid-template-columns: 1fr; }
+    }
+
+    .pros, .cons {
+      padding: 16px 18px;
+      border-radius: 2px;
+      font-size: 0.88rem;
+    }
+
+    .pros { background: #edf5ec; border-left: 3px solid #4a9c47; }
+    .cons { background: #fdf1ee; border-left: 3px solid var(--accent); }
+
+    .pros h4, .cons h4 {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .pros h4 { color: #3a7a37; }
+    .cons h4 { color: var(--accent); }
+
+    .pros ul, .cons ul { list-style: none; }
+
+    .pros li::before { content: '✓ '; color: #4a9c47; font-weight: 600; }
+    .cons li::before { content: '✗ '; color: var(--accent); font-weight: 600; }
+
+    li { margin-bottom: 4px; line-height: 1.5; }
+
+    /* ── INSIGHT BLOCKS ── */
+    .insight-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 36px;
+    }
+
+    .insight {
+      padding: 28px 24px;
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--accent);
+      background: var(--card-bg);
+    }
+
+    .insight-icon { font-size: 1.5rem; margin-bottom: 10px; }
+
+    .insight h4 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .insight p { font-size: 0.88rem; color: var(--muted); margin: 0; }
+
+    /* ── DIVIDER ── */
+    hr { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-divider::before,
+    .section-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .section-divider span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    /* ── TABLE ── */
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 36px;
+      font-size: 0.9rem;
+    }
+
+    .comparison-table th {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: left;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--ink);
+      color: var(--muted);
+      background: var(--cream);
+    }
+
+    .comparison-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table tr:hover td { background: var(--cream); }
+    .comparison-table td:first-child { font-weight: 500; }
+
+    .rating { display: flex; gap: 3px; }
+
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
+    .dot.filled { background: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: rgba(245,240,232,0.5);
+      text-align: center;
+      padding: 40px 24px;
+      font-size: 0.82rem;
+    }
+
+    footer a { color: var(--accent-light); text-decoration: none; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      section { padding: 48px 20px; }
+      .card { padding: 24px 20px; }
+      .comparison-table { font-size: 0.8rem; }
+      .comparison-table th, .comparison-table td { padding: 10px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <p class="header-eyebrow">Reddit Research · March 2026</p>
+    <h1>The Robot Vacuum<br/><em>Buyer's Guide</em></h1>
+    <p class="header-sub">A thorough look at the best self-emptying robot vacuums right now, based on real Reddit user experiences — not marketing copy.</p>
+  </header>
+
+  <!-- NAV -->
+  <nav>
+    <ul>
+      <li><a href="#landscape">The Landscape</a></li>
+      <li><a href="#picks">Top Picks</a></li>
+      <li><a href="#comparison">Compare</a></li>
+      <li><a href="#mopping">On Mopping</a></li>
+      <li><a href="#avoid">What to Avoid</a></li>
+    </ul>
+  </nav>
+
+  <!-- CONTEXT -->
+  <section id="landscape" class="fade-in">
+    <p class="section-label">Context</p>
+    <h2>The market has changed<br/>dramatically.</h2>
+    <p>Two years ago, Roomba was the default answer. Today, Xiaomi-backed brands <strong>Roborock</strong> and <strong>Dreame</strong> dominate Reddit's r/RobotVacuums, and the consensus is that iRobot is increasingly irrelevant while Shark is universally panned. If you came from a Roomba j7 and hated the navigation — you're not alone, and the good news is you won't repeat that experience with any of the picks below.</p>
+    <p>LiDAR navigation is now table stakes on anything worth buying. The real differentiator in 2025–2026 is <strong>obstacle avoidance</strong> — RGB cameras that recognize cables, socks, pet toys, and shoes. This is where brands differ most, and where the Roomba j7 famously fell short.</p>
+    <p>On self-emptying: the best docks now auto-wash mop pads with hot water, hot-air dry them, refill water tanks, and bag dust for up to 10 weeks. Maintenance genuinely becomes nearly zero.</p>
+
+    <div class="insight-grid">
+      <div class="insight fade-in">
+        <div class="insight-icon">🗺️</div>
+        <h4>Navigation</h4>
+        <p>LiDAR + RGB camera is the winning combination. LiDAR alone maps well; the camera handles real-world obstacles.</p>
+      </div>
+      <div class="insight fade-in">
+        <div class="insight-icon">🪣</div>
+        <h4>Self-Emptying</h4>
+        <p>The best docks bag dust for 10 weeks, hot-wash mop pads, hot-air dry them, and auto-refill water tanks. No-touch cleaning is real now.</p>
+      </div>
+      <div class="insight fade-in">
+        <div class="insight-icon">🧹</div>
+        <h4>Mopping</h4>
+        <p>Spinning mop pads (Roborock, Dreame) are lower maintenance. Roller mops (Eufy) clean harder but need more attention.</p>
+      </div>
+      <div class="insight fade-in">
+        <div class="insight-icon">🏆</div>
+        <h4>Brands to Buy</h4>
+        <p>Roborock, Dreame, and Mova. Everything else is a compromise on navigation, support, or reliability.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"><span>Top Picks</span></div>
+
+  <!-- VERDICT STRIP -->
+  <div class="verdict-strip">
+    <p>The three brands worth your money are <strong>Roborock</strong>, <strong>Dreame</strong>, and <strong>Mova</strong>. Roomba is in bankruptcy restructuring. Shark is universally panned. Don't look back.</p>
+  </div>
+
+  <!-- PICKS -->
+  <section id="picks">
+    <p class="section-label">Our Top Picks</p>
+    <h2>Ranked by overall value<br/>for low-maintenance homes.</h2>
+
+    <div class="card-grid">
+
+      <!-- PICK 1 -->
+      <div class="card fade-in">
+        <div class="card-rank">01</div>
+        <span class="card-badge badge-gold">🥇 Best All-Rounder</span>
+        <h3>Roborock Qrevo CurvX</h3>
+        <p class="card-price">~$850–1,000 on sale · ~$1,100 retail</p>
+        <p>The Reddit consensus pick for anyone coming from a bad navigation experience. It has 22,000 Pa suction, a zero-tangle dual brush system, a retractable LiDAR that dips under low furniture, and an AdaptiLift chassis that climbs thresholds up to 4 cm. The dock hot-washes mop pads at 80°C, air-dries them, auto-empties dust for up to 10 weeks, and self-cleans.</p>
+        <p>The app is widely regarded as the best in the business — multi-floor mapping, no-go zones, room-level scheduling, and Matter compatibility. Customer support from Roborock is also frequently cited as a reason to choose them over Dreame.</p>
+        <div class="pros-cons">
+          <div class="pros">
+            <h4>Strengths</h4>
+            <ul>
+              <li>Best-in-class app experience</li>
+              <li>Excellent obstacle avoidance</li>
+              <li>Zero-tangle dual brush</li>
+              <li>Very thorough dock automation</li>
+              <li>Strong customer support</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h4>Tradeoffs</h4>
+            <ul>
+              <li>More expensive than Dreame equivalents</li>
+              <li>Conservative corner cleaning algorithm</li>
+              <li>Struggles with some cables on carpet</li>
+            </ul>
+          </div>
+        </div>
+        <p class="card-verdict"><strong>Best if:</strong> You want a proven, reliable all-rounder with an excellent app, the best customer support, and you don't mind paying a modest premium.</p>
+      </div>
+
+      <!-- PICK 2 -->
+      <div class="card fade-in">
+        <div class="card-rank">02</div>
+        <span class="card-badge badge-silver">🥈 Best Value</span>
+        <h3>Dreame L40 Ultra</h3>
+        <p class="card-price">~$400–600 on sale · ~$800 retail</p>
+        <p>Arguably the best dollar-per-feature robot vacuum available right now, and it's been dropping dramatically in price. It has an RGB camera for genuinely impressive obstacle avoidance (often rated above the Qrevo Curv series at this task), and critically, it can <em>detach its mop pads entirely</em> while vacuuming carpet — a real advantage the Roborock doesn't offer at this level.</p>
+        <p>Reddit's r/RobotVacuums calls it a "phenomenal robot that will do anything you could possibly think of asking." Its dock hot-washes pads, auto-empties, and dries. The extending side brush reaches corners aggressively.</p>
+        <div class="pros-cons">
+          <div class="pros">
+            <h4>Strengths</h4>
+            <ul>
+              <li>Superior obstacle avoidance (RGB camera)</li>
+              <li>Detachable mops for carpet passes</li>
+              <li>Excellent value — often 50%+ off</li>
+              <li>Great edge &amp; corner cleaning</li>
+              <li>Full dock automation included</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h4>Tradeoffs</h4>
+            <ul>
+              <li>Buggy app vs. Roborock</li>
+              <li>Dark rugs can confuse sensors</li>
+              <li>Dock mop cleaning less thorough</li>
+              <li>Weaker warranty support</li>
+            </ul>
+          </div>
+        </div>
+        <p class="card-verdict"><strong>Best if:</strong> You have mostly hard floors, value obstacle avoidance over all else, and want to save a few hundred dollars. When it's on sale below $500, it's almost impossible to say no.</p>
+      </div>
+
+      <!-- PICK 3 -->
+      <div class="card fade-in">
+        <div class="card-rank">03</div>
+        <span class="card-badge badge-bronze">🥉 Best Navigation</span>
+        <h3>Roborock Saros 10R</h3>
+        <p class="card-price">~$1,000–1,100 on sale</p>
+        <p>The true flagship if navigation is your absolute top priority. At just 3.14 inches tall with a retractable LiDAR, it gets under furniture most robots can't reach. It earned a perfect 24/24 score in independent obstacle avoidance testing — the highest ever recorded — making it the Mid-2025 Vacuum Wars Obstacle Avoidance Award winner. The full dock matches everything the CurvX offers.</p>
+        <div class="pros-cons">
+          <div class="pros">
+            <h4>Strengths</h4>
+            <ul>
+              <li>Perfect obstacle avoidance (24/24)</li>
+              <li>Ultra-slim profile, goes under everything</li>
+              <li>Best-in-class navigation</li>
+              <li>Full dock automation</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h4>Tradeoffs</h4>
+            <ul>
+              <li>Most expensive of the three</li>
+              <li>Overkill for simple floor plans</li>
+            </ul>
+          </div>
+        </div>
+        <p class="card-verdict"><strong>Best if:</strong> You have a cluttered home, cable chaos, or simply want the absolute best navigation money can buy without reaching absurd price territory.</p>
+      </div>
+
+      <!-- PICK 4 -->
+      <div class="card fade-in">
+        <div class="card-rank">04</div>
+        <span class="card-badge badge-mention">💧 Best Mopping</span>
+        <h3>Eufy Omni E25</h3>
+        <p class="card-price">~$700–900</p>
+        <p>If mopping quality matters most, the Eufy E25 and E28 with their HydroJet roller mop design are the clear winners in head-to-head mopping tests — beating both Dreame and Roborock on dried spills and liquid messes. The roller mop applies constant fresh water and extracts dirty water in one pass, unlike spinning pads that redistribute dirt.</p>
+        <p>The tradeoff: roller mops are bulkier, can struggle with hair getting inside the mechanism, and Eufy's long-term customer support is more mixed than Roborock's.</p>
+        <div class="pros-cons">
+          <div class="pros">
+            <h4>Strengths</h4>
+            <ul>
+              <li>Best mopping performance overall</li>
+              <li>Roller mop cleans grout/tile well</li>
+              <li>Strong vacuuming on hard floors</li>
+              <li>Good price-to-feature ratio</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h4>Tradeoffs</h4>
+            <ul>
+              <li>Bulkier roller mop mechanism</li>
+              <li>More mixed long-term support</li>
+              <li>Skips mixed wet/dry obstacles</li>
+            </ul>
+          </div>
+        </div>
+        <p class="card-verdict"><strong>Best if:</strong> You have tile or hardwood floors and want the cleanest mop result. If you're skeptical that mopping is a gimmick — this one might change your mind.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"><span>Side-by-Side</span></div>
+
+  <!-- COMPARISON TABLE -->
+  <section id="comparison">
+    <p class="section-label">Comparison</p>
+    <h2>At a glance.</h2>
+
+    <div style="overflow-x:auto;">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Navigation</th>
+            <th>Obstacle Avoidance</th>
+            <th>Self-Empty Dock</th>
+            <th>Mopping</th>
+            <th>Low Maintenance</th>
+            <th>Price (sale)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Roborock Qrevo CurvX</td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div></td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div></td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div></td>
+            <td>~$850–1,000</td>
+          </tr>
+          <tr>
+            <td>Dreame L40 Ultra</td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div></td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></td>
+            <td>~$400–600</td>
+          </tr>
+          <tr>
+            <td>Roborock Saros 10R</td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div></td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div></td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div></td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div></td>
+            <td>~$1,000–1,100</td>
+          </tr>
+          <tr>
+            <td>Eufy Omni E25</td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div></div></td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div></td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div></div></td>
+            <td>~$700–900</td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted)">Roomba j7+ (avoid)</td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></td>
+            <td><div class="rating"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></td>
+            <td><div class="rating"><div class="dot filled"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></td>
+            <td style="color:var(--muted)">$400–600</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="section-divider"><span>On Mopping</span></div>
+
+  <!-- MOPPING SECTION -->
+  <section id="mopping">
+    <p class="section-label">A note on mopping</p>
+    <h2>It's gotten good.<br/>Really good.</h2>
+    <p>Skepticism about robot mopping is completely reasonable — a couple of years ago, it was mostly a damp cloth dragged around the floor. That era is over.</p>
+    <p>Modern high-end docks automatically wash mop pads with hot water (up to 80°C on the CurvX, 70°C on the S5X), spin-dry them with heated air, and self-clean the dock tray so residue doesn't build up. The Eufy E25's HydroJet roller continuously supplies clean water and extracts dirty water in a single pass.</p>
+    <p>The result: if you run the mop daily on hard floors, they legitimately stay clean in ways that feel surprising the first few weeks.</p>
+    <p>The caveats: spinning mop pads (Roborock, Dreame) are better at avoiding carpet and lower maintenance overall. Roller mops (Eufy, Narwal) are better at scrubbing tile grout and removing stuck-on messes, but the rollers can get gunked up with hair and need occasional manual cleaning.</p>
+    <p><strong>Bottom line:</strong> If you have mostly hard floors, buy a model with mopping. You'll use it. If you have mostly carpet, mopping is a nice-to-have but not worth paying extra for.</p>
+  </section>
+
+  <div class="section-divider"><span>What to Avoid</span></div>
+
+  <!-- AVOID SECTION -->
+  <section id="avoid">
+    <p class="section-label">What to avoid</p>
+    <h2>Save yourself the pain.</h2>
+
+    <div class="insight-grid">
+      <div class="insight fade-in">
+        <div class="insight-icon">🚫</div>
+        <h4>iRobot / Roomba</h4>
+        <p>iRobot went through bankruptcy in 2026 and was acquired by Shenzhen-based Picea Robotics. The brand is in flux, customer support is unreliable, and newer models don't compete on navigation. The j7 was already the Reddit community's poster child for bad navigation.</p>
+      </div>
+      <div class="insight fade-in">
+        <div class="insight-icon">🚫</div>
+        <h4>Shark</h4>
+        <p>Universally panned on r/RobotVacuums. Poor navigation, poor battery life, cheap construction, and inadequate customer support. Multiple Reddit users who tried them returned within a week.</p>
+      </div>
+      <div class="insight fade-in">
+        <div class="insight-icon">⚠️</div>
+        <h4>Ecovacs Deebot (use caution)</h4>
+        <p>Some Deebot models offer compelling specs at good prices, but Reddit users frequently cite worse navigation consistency than Roborock and Dreame. The X8 Pro Omni tested well in 2025, but it's an exception.</p>
+      </div>
+      <div class="insight fade-in">
+        <div class="insight-icon">⚠️</div>
+        <h4>Dreame X50 Ultra (flagship)</h4>
+        <p>Multiple Reddit users reported the X50 Ultra dying within days, battery drain issues, and navigation failures near dark rugs and in low light. The older, cheaper L40 Ultra actually performs better for everyday use.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Research compiled from <a href="https://reddit.com/r/RobotVacuums" target="_blank">r/RobotVacuums</a>, <a href="https://vacuumwars.com" target="_blank">Vacuum Wars</a>, and aggregated Reddit sentiment data · March 2026</p>
+    <p style="margin-top:8px;">Not sponsored. No affiliate links. Just research.</p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
