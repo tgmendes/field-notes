@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nursery Shortlist — Field Notes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:          #1a1612;
+      --paper:        #f5f0e8;
+      --cream:        #ede8dc;
+      --accent:       #c84b2f;
+      --accent-light: #e8715a;
+      --gold:         #b07d10;
+      --green:        #2d6e4e;
+      --blue:         #2a5fa5;
+      --muted:        #7a6f62;
+      --border:       #d4c9b8;
+      --card-bg:      #faf7f2;
+      --ink-on-dark:  #f5f0e8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--ink);
+      color: var(--ink-on-dark);
+      padding: 72px 40px 56px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 18px,
+        rgba(255,255,255,0.025) 18px,
+        rgba(255,255,255,0.025) 19px
+      );
+      pointer-events: none;
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .eyebrow a {
+      color: var(--accent-light);
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .eyebrow a:hover { opacity: 1; }
+
+    .eyebrow-sep { opacity: 0.35; }
+
+    header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      line-height: 1.05;
+      max-width: 640px;
+      margin-bottom: 18px;
+      animation: fadeUp 0.6s 0.08s ease both;
+    }
+
+    header h1 em {
+      font-style: italic;
+      color: var(--accent-light);
+    }
+
+    .header-desc {
+      font-size: 0.95rem;
+      color: rgba(245,240,232,0.55);
+      max-width: 52ch;
+      font-weight: 300;
+      animation: fadeUp 0.6s 0.16s ease both;
+    }
+
+    /* ── STATS STRIP ── */
+    .stats-strip {
+      background: var(--cream);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stats-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      gap: 0;
+    }
+
+    .stat {
+      padding: 20px 32px 20px 0;
+      margin-right: 32px;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-value {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem;
+      line-height: 1;
+      color: var(--ink);
+      display: block;
+    }
+
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 40px 80px;
+    }
+
+    .section-meta {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+      margin-bottom: 32px;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .section-count {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--border);
+    }
+
+    /* ── NURSERY CARD ── */
+    .nursery-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .nursery-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .nursery-card:nth-child(1) { animation-delay: 0.1s; }
+    .nursery-card:nth-child(2) { animation-delay: 0.18s; }
+    .nursery-card:nth-child(3) { animation-delay: 0.26s; }
+    .nursery-card:nth-child(4) { animation-delay: 0.34s; }
+
+    .card-header {
+      padding: 28px 32px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .card-title-group { flex: 1; min-width: 0; }
+
+    .nursery-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.55rem;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .nursery-address {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .nursery-phone {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* Status badge */
+    .status-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      border: 1px solid;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .status-badge.status-waitlist {
+      color: var(--green);
+      border-color: var(--green);
+      background: rgba(45,110,78,0.06);
+    }
+
+    .status-badge.status-pending {
+      color: var(--gold);
+      border-color: var(--gold);
+      background: rgba(176,125,16,0.06);
+    }
+
+    .status-badge.status-registered {
+      color: var(--blue);
+      border-color: var(--blue);
+      background: rgba(42,95,165,0.06);
+    }
+
+    /* ── DATA GRID ── */
+    .card-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .data-cell {
+      padding: 20px 24px;
+      border-right: 1px solid var(--border);
+    }
+
+    .data-cell:last-child { border-right: none; }
+
+    .data-cell-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .data-cell-value {
+      font-size: 0.88rem;
+      color: var(--ink);
+      line-height: 1.4;
+    }
+
+    .data-cell-value.highlight {
+      font-weight: 500;
+    }
+
+    /* Ofsted rating pill */
+    .ofsted-rating {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .rating-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .rating-outstanding .rating-dot { background: #2d6e4e; }
+    .rating-good .rating-dot { background: #2a5fa5; }
+    .rating-requires-improvement .rating-dot { background: #b07d10; }
+    .rating-inadequate .rating-dot { background: #c84b2f; }
+
+    /* ── AVAILABILITY ROW ── */
+    .card-availability {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avail-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .avail-value {
+      font-size: 0.85rem;
+      color: var(--ink);
+    }
+
+    /* ── OFSTED SUMMARY (collapsible) ── */
+    .card-ofsted {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .ofsted-toggle {
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      text-align: left;
+    }
+
+    .ofsted-toggle:hover { background: var(--cream); }
+
+    .ofsted-toggle-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .ofsted-chevron {
+      font-size: 0.7rem;
+      color: var(--border);
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .ofsted-body {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.3s ease, padding 0.2s ease;
+    }
+
+    .ofsted-body.open {
+      max-height: 600px;
+    }
+
+    .ofsted-body-inner {
+      padding: 0 24px 20px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .ofsted-toggle[aria-expanded="true"] .ofsted-chevron {
+      transform: rotate(180deg);
+    }
+
+    /* ── NOTES ── */
+    .card-notes {
+      padding: 16px 24px;
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .notes-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .notes-value {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 40px;
+      max-width: 960px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--border);
+      letter-spacing: 0.1em;
+    }
+
+    footer a {
+      color: var(--border);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover { color: var(--muted); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      header { padding: 48px 24px 40px; }
+      main { padding: 36px 24px 64px; }
+      footer { padding: 20px 24px; flex-direction: column; gap: 8px; }
+      .stats-inner { padding: 0 24px; flex-wrap: wrap; }
+      .card-header { padding: 22px 20px 18px; flex-direction: column; }
+      .card-body { grid-template-columns: 1fr 1fr; }
+      .data-cell { padding: 16px 20px; }
+      .card-notes, .card-availability, .ofsted-toggle { padding: 14px 20px; }
+      .ofsted-body-inner { padding: 0 20px 16px; }
+    }
+
+    @media (max-width: 480px) {
+      .card-body { grid-template-columns: 1fr; }
+      .data-cell { border-right: none; border-bottom: 1px solid var(--border); }
+      .data-cell:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="eyebrow">
+        <a href="../">Field Notes</a>
+        <span class="eyebrow-sep">/</span>
+        <span>Nursery Shortlist</span>
+      </div>
+      <h1>Nursery<br /><em>Research</em></h1>
+      <p class="header-desc">Tracking availability, Ofsted ratings, and key details for nurseries near Milton Keynes.</p>
+    </div>
+  </header>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="stats-inner">
+      <div class="stat">
+        <span class="stat-value">2</span>
+        <span class="stat-label">Tracked</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">1</span>
+        <span class="stat-label">Visited</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">1</span>
+        <span class="stat-label">Waitlisted</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">2</span>
+        <span class="stat-label">Ofsted Good</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <main>
+    <div class="section-meta">
+      <span class="section-label">Nurseries</span>
+      <span class="section-count">02 entries</span>
+    </div>
+
+    <div class="nursery-list">
+
+      <!-- ── NURSERY 1: Acorn at the Rowans ── -->
+      <div class="nursery-card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h2 class="nursery-name">Acorn at the Rowans</h2>
+            <p class="nursery-address">The Rowans Family Centre, 13a Moorfoot, Fullers Slade, Milton Keynes MK11 2BD</p>
+            <p class="nursery-phone">07889 540737</p>
+          </div>
+          <span class="status-badge status-pending">Registration pending</span>
+        </div>
+
+        <div class="card-body">
+          <div class="data-cell">
+            <span class="data-cell-label">Hours</span>
+            <span class="data-cell-value">Mon–Fri, 7:30am–6:00pm<br />All year round</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Age Range</span>
+            <span class="data-cell-value">0 to 4 years</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Capacity</span>
+            <span class="data-cell-value highlight">46 places</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Ofsted Rating</span>
+            <span class="data-cell-value">
+              <span class="ofsted-rating rating-good">
+                <span class="rating-dot"></span>Good
+              </span>
+            </span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Ofsted Date</span>
+            <span class="data-cell-value">24 Nov 2023</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Funded Places</span>
+            <span class="data-cell-value">2, 3 &amp; 4-year-olds</span>
+          </div>
+        </div>
+
+        <div class="card-availability">
+          <span class="avail-label">Availability</span>
+          <span class="avail-value">Visited — availability confirmed</span>
+        </div>
+
+        <div class="card-ofsted">
+          <button class="ofsted-toggle" aria-expanded="false" onclick="toggleOfsted(this)">
+            <span class="ofsted-toggle-label">Ofsted Summary</span>
+            <span class="ofsted-chevron">▼</span>
+          </button>
+          <div class="ofsted-body">
+            <div class="ofsted-body-inner">
+              Overall effectiveness: <strong>Good</strong> (prev. Requires Improvement). Quality of education, behaviour &amp; attitudes, personal development, and leadership &amp; management all rated Good. Safeguarding effective.
+              <br /><br />
+              <strong>Strengths:</strong> Happy, welcoming atmosphere; strong key-person system and secure attachments; good promotion of physical skills, healthy eating and hygiene; clear curriculum vision; good parent engagement.
+              <br /><br />
+              <strong>To improve:</strong> Give children more time to process and respond to questions; make daily routines and transitions clearer so children know what to expect.
+            </div>
+          </div>
+        </div>
+
+        <div class="card-notes">
+          <span class="notes-label">Notes</span>
+          <span class="notes-value">Part of Acorn Early Years Foundation.</span>
+        </div>
+      </div>
+
+      <!-- ── NURSERY 2: Woodlands Day Nursery ── -->
+      <div class="nursery-card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h2 class="nursery-name">Woodlands Day Nursery</h2>
+            <p class="nursery-address">Byerly Place, Downs Barn, Milton Keynes, Buckinghamshire MK14 7QE</p>
+            <p class="nursery-phone">01908 690999</p>
+          </div>
+          <span class="status-badge status-waitlist">Waitlisted</span>
+        </div>
+
+        <div class="card-body">
+          <div class="data-cell">
+            <span class="data-cell-label">Hours</span>
+            <span class="data-cell-value">Mon–Fri, 8:00am–6:00pm<br />All year round</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Age Range</span>
+            <span class="data-cell-value">0 to 4 years</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Capacity</span>
+            <span class="data-cell-value highlight">83 places</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Ofsted Rating</span>
+            <span class="data-cell-value">
+              <span class="ofsted-rating rating-good">
+                <span class="rating-dot"></span>Good
+              </span>
+            </span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Ofsted Date</span>
+            <span class="data-cell-value">17 Jan 2024</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Funded Places</span>
+            <span class="data-cell-value">2, 3 &amp; 4-year-olds</span>
+          </div>
+        </div>
+
+        <div class="card-availability">
+          <span class="avail-label">Availability</span>
+          <span class="avail-value">Waitlisted — confirmation 8–12 weeks before desired start date</span>
+        </div>
+
+        <div class="card-ofsted">
+          <button class="ofsted-toggle" aria-expanded="false" onclick="toggleOfsted(this)">
+            <span class="ofsted-toggle-label">Ofsted Summary</span>
+            <span class="ofsted-chevron">▼</span>
+          </button>
+          <div class="ofsted-body">
+            <div class="ofsted-body-inner">
+              Overall effectiveness: <strong>Good</strong> (prev. Outstanding). Quality of education, behaviour &amp; attitudes, personal development, and leadership &amp; management all rated Good. Safeguarding effective with an open, positive culture.
+              <br /><br />
+              <strong>Strengths:</strong> Concise, ambitious curriculum with clear per-room focus; strong key-person relationships; good physical development, healthy eating and communication; forest school and trips to a local retirement home; flexible child-led routines (sleep/eat on demand); good progress for children with SEND; comprehensive staff training.
+              <br /><br />
+              <strong>To improve:</strong> Gather information on children's prior learning from previous settings; give parents clearer, simpler feedback on care routines.
+            </div>
+          </div>
+        </div>
+
+        <div class="card-notes">
+          <span class="notes-label">Notes</span>
+          <span class="notes-value">Owned by Childbase Partnership. Registered 1997.</span>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <span><a href="../">← Field Notes</a></span>
+    <span>Updated May 2026</span>
+  </footer>
+
+  <script>
+    function toggleOfsted(btn) {
+      const body = btn.nextElementSibling;
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+      body.classList.toggle('open', !expanded);
+    }
+  </script>
+
+</body>
+</html>
