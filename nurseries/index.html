@@ -18,6 +18,10 @@
       --gold:         #b07d10;
       --green:        #2d6e4e;
       --blue:         #2a5fa5;
+      --red:          #8b2020;
+      --amber:        #92580a;
+      --amber-bg:     #fef9f0;
+      --amber-border: #e8c97a;
       --muted:        #7a6f62;
       --border:       #d4c9b8;
       --card-bg:      #faf7f2;
@@ -84,7 +88,6 @@
     }
 
     .eyebrow a:hover { opacity: 1; }
-
     .eyebrow-sep { opacity: 0.35; }
 
     header h1 {
@@ -121,6 +124,7 @@
       padding: 0 40px;
       display: flex;
       gap: 0;
+      flex-wrap: wrap;
     }
 
     .stat {
@@ -129,7 +133,7 @@
       border-right: 1px solid var(--border);
     }
 
-    .stat:last-child { border-right: none; }
+    .stat:last-child { border-right: none; margin-right: 0; }
 
     .stat-value {
       font-family: 'DM Serif Display', serif;
@@ -179,11 +183,25 @@
       color: var(--border);
     }
 
+    /* ── GROUP LABELS ── */
+    .group-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 32px 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .group-label:first-of-type { margin-top: 0; }
+
     /* ── NURSERY CARD ── */
     .nursery-list {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 16px;
     }
 
     .nursery-card {
@@ -192,13 +210,22 @@
       animation: fadeUp 0.5s ease both;
     }
 
-    .nursery-card:nth-child(1) { animation-delay: 0.1s; }
-    .nursery-card:nth-child(2) { animation-delay: 0.18s; }
-    .nursery-card:nth-child(3) { animation-delay: 0.26s; }
-    .nursery-card:nth-child(4) { animation-delay: 0.34s; }
+    .nursery-card.ruled-out {
+      opacity: 0.65;
+    }
 
+    .nursery-card:nth-child(1) { animation-delay: 0.06s; }
+    .nursery-card:nth-child(2) { animation-delay: 0.1s; }
+    .nursery-card:nth-child(3) { animation-delay: 0.14s; }
+    .nursery-card:nth-child(4) { animation-delay: 0.18s; }
+    .nursery-card:nth-child(5) { animation-delay: 0.22s; }
+    .nursery-card:nth-child(6) { animation-delay: 0.26s; }
+    .nursery-card:nth-child(7) { animation-delay: 0.3s; }
+    .nursery-card:nth-child(8) { animation-delay: 0.34s; }
+
+    /* ── CARD HEADER ── */
     .card-header {
-      padding: 28px 32px 24px;
+      padding: 24px 28px 20px;
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: flex-start;
@@ -210,54 +237,41 @@
 
     .nursery-name {
       font-family: 'DM Serif Display', serif;
-      font-size: 1.55rem;
+      font-size: 1.45rem;
       font-weight: 400;
       line-height: 1.2;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .nursery-address {
-      font-size: 0.83rem;
+      font-size: 0.82rem;
       color: var(--muted);
       line-height: 1.5;
     }
 
     .nursery-phone {
       font-family: 'DM Mono', monospace;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       color: var(--muted);
-      margin-top: 4px;
+      margin-top: 3px;
     }
 
-    /* Status badge */
+    /* ── STATUS BADGES ── */
     .status-badge {
       font-family: 'DM Mono', monospace;
-      font-size: 0.62rem;
+      font-size: 0.6rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      padding: 5px 10px;
+      padding: 4px 9px;
       border: 1px solid;
       white-space: nowrap;
       flex-shrink: 0;
     }
 
-    .status-badge.status-waitlist {
-      color: var(--green);
-      border-color: var(--green);
-      background: rgba(45,110,78,0.06);
-    }
-
-    .status-badge.status-pending {
-      color: var(--gold);
-      border-color: var(--gold);
-      background: rgba(176,125,16,0.06);
-    }
-
-    .status-badge.status-registered {
-      color: var(--blue);
-      border-color: var(--blue);
-      background: rgba(42,95,165,0.06);
-    }
+    .status-waitlist    { color: var(--green);  border-color: var(--green);  background: rgba(45,110,78,0.06); }
+    .status-pending     { color: var(--gold);   border-color: var(--gold);   background: rgba(176,125,16,0.06); }
+    .status-opening     { color: var(--blue);   border-color: var(--blue);   background: rgba(42,95,165,0.06); }
+    .status-not-applying{ color: var(--muted);  border-color: var(--border); background: transparent; }
 
     /* ── DATA GRID ── */
     .card-body {
@@ -266,8 +280,10 @@
       border-bottom: 1px solid var(--border);
     }
 
+    .card-body.cols-2 { grid-template-columns: 1fr 1fr; }
+
     .data-cell {
-      padding: 20px 24px;
+      padding: 16px 20px;
       border-right: 1px solid var(--border);
     }
 
@@ -275,25 +291,23 @@
 
     .data-cell-label {
       font-family: 'DM Mono', monospace;
-      font-size: 0.58rem;
+      font-size: 0.56rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 6px;
+      margin-bottom: 5px;
       display: block;
     }
 
     .data-cell-value {
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       color: var(--ink);
       line-height: 1.4;
     }
 
-    .data-cell-value.highlight {
-      font-weight: 500;
-    }
+    .data-cell-value.highlight { font-weight: 500; }
 
-    /* Ofsted rating pill */
+    /* ── OFSTED RATING ── */
     .ofsted-rating {
       display: inline-flex;
       align-items: center;
@@ -301,51 +315,96 @@
     }
 
     .rating-dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       flex-shrink: 0;
     }
 
     .rating-outstanding .rating-dot { background: #2d6e4e; }
-    .rating-good .rating-dot { background: #2a5fa5; }
-    .rating-requires-improvement .rating-dot { background: #b07d10; }
-    .rating-inadequate .rating-dot { background: #c84b2f; }
+    .rating-good        .rating-dot { background: #2a5fa5; }
+    .rating-requires    .rating-dot { background: #b07d10; }
+    .rating-inadequate  .rating-dot { background: #c84b2f; }
 
     /* ── AVAILABILITY ROW ── */
-    .card-availability {
-      padding: 16px 24px;
+    .card-row {
+      padding: 13px 20px;
       border-bottom: 1px solid var(--border);
       display: flex;
-      align-items: center;
+      align-items: baseline;
       gap: 12px;
     }
 
-    .avail-label {
+    .row-label {
       font-family: 'DM Mono', monospace;
-      font-size: 0.58rem;
+      font-size: 0.56rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--muted);
       flex-shrink: 0;
+      min-width: 90px;
     }
 
-    .avail-value {
-      font-size: 0.85rem;
+    .row-value {
+      font-size: 0.84rem;
       color: var(--ink);
+      line-height: 1.5;
+    }
+
+    /* ── COMPLIANCE NOTICES ── */
+    .card-compliance {
+      border-bottom: 1px solid var(--amber-border);
+      background: var(--amber-bg);
+    }
+
+    .compliance-header {
+      padding: 10px 20px 6px;
+    }
+
+    .compliance-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.56rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber);
+    }
+
+    .compliance-items {
+      padding: 0 20px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .compliance-item {
+      display: flex;
+      gap: 12px;
+      align-items: baseline;
+    }
+
+    .compliance-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--amber);
+      flex-shrink: 0;
+      min-width: 60px;
+    }
+
+    .compliance-text {
+      font-size: 0.82rem;
+      color: var(--amber);
+      line-height: 1.5;
     }
 
     /* ── OFSTED SUMMARY (collapsible) ── */
-    .card-ofsted {
-      border-bottom: 1px solid var(--border);
-    }
+    .card-ofsted { border-bottom: 1px solid var(--border); }
 
     .ofsted-toggle {
       width: 100%;
       background: none;
       border: none;
       cursor: pointer;
-      padding: 16px 24px;
+      padding: 13px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -357,43 +416,43 @@
 
     .ofsted-toggle-label {
       font-family: 'DM Mono', monospace;
-      font-size: 0.58rem;
+      font-size: 0.56rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--muted);
     }
 
     .ofsted-chevron {
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       color: var(--border);
       transition: transform 0.25s ease;
       flex-shrink: 0;
-    }
-
-    .ofsted-body {
-      overflow: hidden;
-      max-height: 0;
-      transition: max-height 0.3s ease, padding 0.2s ease;
-    }
-
-    .ofsted-body.open {
-      max-height: 600px;
-    }
-
-    .ofsted-body-inner {
-      padding: 0 24px 20px;
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.7;
     }
 
     .ofsted-toggle[aria-expanded="true"] .ofsted-chevron {
       transform: rotate(180deg);
     }
 
+    .ofsted-body {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.3s ease;
+    }
+
+    .ofsted-body.open { max-height: 800px; }
+
+    .ofsted-body-inner {
+      padding: 0 20px 18px;
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .ofsted-body-inner strong { color: var(--ink); font-weight: 500; }
+
     /* ── NOTES ── */
     .card-notes {
-      padding: 16px 24px;
+      padding: 13px 20px;
       display: flex;
       align-items: baseline;
       gap: 12px;
@@ -401,15 +460,16 @@
 
     .notes-label {
       font-family: 'DM Mono', monospace;
-      font-size: 0.58rem;
+      font-size: 0.56rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--muted);
       flex-shrink: 0;
+      min-width: 90px;
     }
 
     .notes-value {
-      font-size: 0.83rem;
+      font-size: 0.82rem;
       color: var(--muted);
       line-height: 1.5;
     }
@@ -433,17 +493,12 @@
       letter-spacing: 0.1em;
     }
 
-    footer a {
-      color: var(--border);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
+    footer a { color: var(--border); text-decoration: none; transition: color 0.2s; }
     footer a:hover { color: var(--muted); }
 
     /* ── ANIMATIONS ── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(14px); }
+      from { opacity: 0; transform: translateY(12px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
@@ -452,16 +507,17 @@
       header { padding: 48px 24px 40px; }
       main { padding: 36px 24px 64px; }
       footer { padding: 20px 24px; flex-direction: column; gap: 8px; }
-      .stats-inner { padding: 0 24px; flex-wrap: wrap; }
-      .card-header { padding: 22px 20px 18px; flex-direction: column; }
+      .stats-inner { padding: 0 24px; }
+      .card-header { padding: 18px 18px 16px; flex-direction: column; }
       .card-body { grid-template-columns: 1fr 1fr; }
-      .data-cell { padding: 16px 20px; }
-      .card-notes, .card-availability, .ofsted-toggle { padding: 14px 20px; }
-      .ofsted-body-inner { padding: 0 20px 16px; }
+      .card-body.cols-2 { grid-template-columns: 1fr; }
+      .data-cell { padding: 13px 18px; }
+      .card-row, .card-notes, .compliance-header, .compliance-items,
+      .ofsted-toggle { padding-left: 18px; padding-right: 18px; }
     }
 
     @media (max-width: 480px) {
-      .card-body { grid-template-columns: 1fr; }
+      .card-body, .card-body.cols-2 { grid-template-columns: 1fr; }
       .data-cell { border-right: none; border-bottom: 1px solid var(--border); }
       .data-cell:last-child { border-bottom: none; }
     }
@@ -486,20 +542,20 @@
   <div class="stats-strip">
     <div class="stats-inner">
       <div class="stat">
-        <span class="stat-value">2</span>
+        <span class="stat-value">8</span>
         <span class="stat-label">Tracked</span>
       </div>
       <div class="stat">
-        <span class="stat-value">1</span>
+        <span class="stat-value">5</span>
         <span class="stat-label">Visited</span>
       </div>
       <div class="stat">
-        <span class="stat-value">1</span>
+        <span class="stat-value">4</span>
         <span class="stat-label">Waitlisted</span>
       </div>
       <div class="stat">
         <span class="stat-value">2</span>
-        <span class="stat-label">Ofsted Good</span>
+        <span class="stat-label">Not Applying</span>
       </div>
     </div>
   </div>
@@ -508,12 +564,16 @@
   <main>
     <div class="section-meta">
       <span class="section-label">Nurseries</span>
-      <span class="section-count">02 entries</span>
+      <span class="section-count">08 entries</span>
     </div>
 
     <div class="nursery-list">
 
-      <!-- ── NURSERY 1: Acorn at the Rowans ── -->
+      <!-- ─────────────────────────────────────────────
+           ACTIVE / WAITLISTED
+           ───────────────────────────────────────────── -->
+
+      <!-- 1. Acorn at the Rowans -->
       <div class="nursery-card">
         <div class="card-header">
           <div class="card-title-group">
@@ -523,11 +583,10 @@
           </div>
           <span class="status-badge status-pending">Registration pending</span>
         </div>
-
         <div class="card-body">
           <div class="data-cell">
             <span class="data-cell-label">Hours</span>
-            <span class="data-cell-value">Mon–Fri, 7:30am–6:00pm<br />All year round</span>
+            <span class="data-cell-value">Mon–Fri, 7:30am–6:00pm<br/>All year round</span>
           </div>
           <div class="data-cell">
             <span class="data-cell-label">Age Range</span>
@@ -540,9 +599,7 @@
           <div class="data-cell">
             <span class="data-cell-label">Ofsted Rating</span>
             <span class="data-cell-value">
-              <span class="ofsted-rating rating-good">
-                <span class="rating-dot"></span>Good
-              </span>
+              <span class="ofsted-rating rating-good"><span class="rating-dot"></span>Good</span>
             </span>
           </div>
           <div class="data-cell">
@@ -554,12 +611,10 @@
             <span class="data-cell-value">2, 3 &amp; 4-year-olds</span>
           </div>
         </div>
-
-        <div class="card-availability">
-          <span class="avail-label">Availability</span>
-          <span class="avail-value">Visited — availability confirmed</span>
+        <div class="card-row">
+          <span class="row-label">Availability</span>
+          <span class="row-value">Visited — availability confirmed</span>
         </div>
-
         <div class="card-ofsted">
           <button class="ofsted-toggle" aria-expanded="false" onclick="toggleOfsted(this)">
             <span class="ofsted-toggle-label">Ofsted Summary</span>
@@ -567,22 +622,21 @@
           </button>
           <div class="ofsted-body">
             <div class="ofsted-body-inner">
-              Overall effectiveness: <strong>Good</strong> (prev. Requires Improvement). Quality of education, behaviour &amp; attitudes, personal development, and leadership &amp; management all rated Good. Safeguarding effective.
-              <br /><br />
+              Overall: <strong>Good</strong> (prev. Requires Improvement). All sub-judgements rated Good. Safeguarding effective.
+              <br/><br/>
               <strong>Strengths:</strong> Happy, welcoming atmosphere; strong key-person system and secure attachments; good promotion of physical skills, healthy eating and hygiene; clear curriculum vision; good parent engagement.
-              <br /><br />
-              <strong>To improve:</strong> Give children more time to process and respond to questions; make daily routines and transitions clearer so children know what to expect.
+              <br/><br/>
+              <strong>To improve:</strong> Give children more time to process and respond to questions; make daily routines and transitions clearer.
             </div>
           </div>
         </div>
-
         <div class="card-notes">
           <span class="notes-label">Notes</span>
-          <span class="notes-value">Part of Acorn Early Years Foundation.</span>
+          <span class="notes-value">Part of Acorn Early Years Foundation. Provides funded early education for 2, 3 &amp; 4-year-olds.</span>
         </div>
       </div>
 
-      <!-- ── NURSERY 2: Woodlands Day Nursery ── -->
+      <!-- 2. Woodlands Day Nursery -->
       <div class="nursery-card">
         <div class="card-header">
           <div class="card-title-group">
@@ -592,11 +646,10 @@
           </div>
           <span class="status-badge status-waitlist">Waitlisted</span>
         </div>
-
         <div class="card-body">
           <div class="data-cell">
             <span class="data-cell-label">Hours</span>
-            <span class="data-cell-value">Mon–Fri, 8:00am–6:00pm<br />All year round</span>
+            <span class="data-cell-value">Mon–Fri, 8:00am–6:00pm<br/>All year round</span>
           </div>
           <div class="data-cell">
             <span class="data-cell-label">Age Range</span>
@@ -609,9 +662,7 @@
           <div class="data-cell">
             <span class="data-cell-label">Ofsted Rating</span>
             <span class="data-cell-value">
-              <span class="ofsted-rating rating-good">
-                <span class="rating-dot"></span>Good
-              </span>
+              <span class="ofsted-rating rating-good"><span class="rating-dot"></span>Good</span>
             </span>
           </div>
           <div class="data-cell">
@@ -623,12 +674,10 @@
             <span class="data-cell-value">2, 3 &amp; 4-year-olds</span>
           </div>
         </div>
-
-        <div class="card-availability">
-          <span class="avail-label">Availability</span>
-          <span class="avail-value">Waitlisted — confirmation 8–12 weeks before desired start date</span>
+        <div class="card-row">
+          <span class="row-label">Availability</span>
+          <span class="row-value">Waitlisted — confirmation 8–12 weeks before desired start date</span>
         </div>
-
         <div class="card-ofsted">
           <button class="ofsted-toggle" aria-expanded="false" onclick="toggleOfsted(this)">
             <span class="ofsted-toggle-label">Ofsted Summary</span>
@@ -636,18 +685,381 @@
           </button>
           <div class="ofsted-body">
             <div class="ofsted-body-inner">
-              Overall effectiveness: <strong>Good</strong> (prev. Outstanding). Quality of education, behaviour &amp; attitudes, personal development, and leadership &amp; management all rated Good. Safeguarding effective with an open, positive culture.
-              <br /><br />
-              <strong>Strengths:</strong> Concise, ambitious curriculum with clear per-room focus; strong key-person relationships; good physical development, healthy eating and communication; forest school and trips to a local retirement home; flexible child-led routines (sleep/eat on demand); good progress for children with SEND; comprehensive staff training.
-              <br /><br />
+              Overall: <strong>Good</strong> (prev. Outstanding). All sub-judgements rated Good. Safeguarding effective with an open, positive culture.
+              <br/><br/>
+              <strong>Strengths:</strong> Concise, ambitious curriculum with clear per-room focus; strong key-person relationships; forest school and trips to a local retirement home; flexible child-led routines (sleep/eat on demand); good SEND progress; comprehensive staff training.
+              <br/><br/>
               <strong>To improve:</strong> Gather information on children's prior learning from previous settings; give parents clearer, simpler feedback on care routines.
             </div>
           </div>
         </div>
-
         <div class="card-notes">
           <span class="notes-label">Notes</span>
-          <span class="notes-value">Owned by Childbase Partnership. Registered 1997.</span>
+          <span class="notes-value">Owned by Childbase Partnership. Registered 1997. Provides funded early education for 2, 3 &amp; 4-year-olds.</span>
+        </div>
+      </div>
+
+      <!-- 3. Acorn Day Nursery Shenley -->
+      <div class="nursery-card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h2 class="nursery-name">Acorn Day Nursery Shenley</h2>
+            <p class="nursery-address">Shenley Road, Shenley Church End, Milton Keynes MK5 6AB</p>
+            <p class="nursery-phone">01908 507282</p>
+          </div>
+          <span class="status-badge status-waitlist">Waitlisted</span>
+        </div>
+        <div class="card-body">
+          <div class="data-cell">
+            <span class="data-cell-label">Hours</span>
+            <span class="data-cell-value">Mon–Fri, 7:30am–6:15pm<br/>All year round</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Age Range</span>
+            <span class="data-cell-value">0 to 4 years</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Capacity</span>
+            <span class="data-cell-value highlight">48 places</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Ofsted Rating</span>
+            <span class="data-cell-value">
+              <span class="ofsted-rating rating-good"><span class="rating-dot"></span>Good</span>
+            </span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Ofsted Date</span>
+            <span class="data-cell-value">18 Feb 2025</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Funded Places</span>
+            <span class="data-cell-value">From 9 months</span>
+          </div>
+        </div>
+        <div class="card-row">
+          <span class="row-label">Availability</span>
+          <span class="row-value">Visited — waitlisted. September 2027 only.</span>
+        </div>
+        <div class="card-ofsted">
+          <button class="ofsted-toggle" aria-expanded="false" onclick="toggleOfsted(this)">
+            <span class="ofsted-toggle-label">Ofsted Summary</span>
+            <span class="ofsted-chevron">▼</span>
+          </button>
+          <div class="ofsted-body">
+            <div class="ofsted-body-inner">
+              Overall: <strong>Good</strong> (prev. Good, 2019). All sub-judgements rated Good. Safeguarding effective with an open, positive culture.
+              <br/><br/>
+              <strong>Strengths:</strong> Exemplary settling-in programme including home visits; strong language development curriculum; staff build vocabulary from babbling to words; sustainability and environmental learning (wormery, garden); regular storytelling and love of books; outdoor learning; community trips (swimming, libraries, charity shops); outstanding parent partnerships; strong SEND support.
+              <br/><br/>
+              <strong>To improve:</strong> Develop planning and delivery of the mathematics curriculum to build more systematically on what children already know.
+            </div>
+          </div>
+        </div>
+        <div class="card-notes">
+          <span class="notes-label">Notes</span>
+          <span class="notes-value">Part of Acorn Early Years Foundation. Re-registered 2016.</span>
+        </div>
+      </div>
+
+      <!-- 4. Acorn at Cold Harbour -->
+      <div class="nursery-card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h2 class="nursery-name">Acorn at Cold Harbour</h2>
+            <p class="nursery-address">Highland Close, Bletchley, Milton Keynes, Buckinghamshire MK3 7PD</p>
+            <p class="nursery-phone">01908 983 393</p>
+          </div>
+          <span class="status-badge status-waitlist">Waitlisted</span>
+        </div>
+        <div class="card-body">
+          <div class="data-cell">
+            <span class="data-cell-label">Hours</span>
+            <span class="data-cell-value">Mon–Fri, 7:30am–6:15pm<br/>51 weeks/year</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Age Range</span>
+            <span class="data-cell-value">0 to 4 years</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Capacity</span>
+            <span class="data-cell-value highlight">54 places</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Ofsted Rating</span>
+            <span class="data-cell-value">
+              <span class="ofsted-rating rating-good"><span class="rating-dot"></span>Good</span>
+            </span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Ofsted Date</span>
+            <span class="data-cell-value">10 Mar 2022</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Funded Places</span>
+            <span class="data-cell-value">2, 3 &amp; 4-year-olds</span>
+          </div>
+        </div>
+        <div class="card-row">
+          <span class="row-label">Availability</span>
+          <span class="row-value">Waitlisted — no visit yet. Available from September 2027.</span>
+        </div>
+        <div class="card-compliance">
+          <div class="compliance-header">
+            <span class="compliance-title">Compliance notices</span>
+          </div>
+          <div class="compliance-items">
+            <div class="compliance-item">
+              <span class="compliance-date">Aug 2021</span>
+              <span class="compliance-text">Compliance action — children not always within sight or hearing during indoor/outdoor transitions. Resolved by Sep 2021.</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-ofsted">
+          <button class="ofsted-toggle" aria-expanded="false" onclick="toggleOfsted(this)">
+            <span class="ofsted-toggle-label">Ofsted Summary</span>
+            <span class="ofsted-chevron">▼</span>
+          </button>
+          <div class="ofsted-body">
+            <div class="ofsted-body-inner">
+              Overall: <strong>Good</strong> (first inspection — registered 2019). All sub-judgements rated Good. Safeguarding effective.
+              <br/><br/>
+              <strong>Strengths:</strong> Extensive grounds with woodland and Forest School areas; effective key-person system; strong SEND support with early diagnosis and individual care plans; healthy meals and social mealtimes with independence encouraged; strong parent partnerships — parents describe staff as "absolutely amazing and dedicated"; regular stories and songs.
+              <br/><br/>
+              <strong>To improve:</strong> Support staff to use children's interests to drive language interactions for those who need extra support; ensure all staff consistently apply the setting's behaviour strategies.
+            </div>
+          </div>
+        </div>
+        <div class="card-notes">
+          <span class="notes-label">Notes</span>
+          <span class="notes-value">Part of Acorn Early Years Foundation. Registered 2019.</span>
+        </div>
+      </div>
+
+      <!-- 5. Wellies Day Nursery -->
+      <div class="nursery-card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h2 class="nursery-name">Wellies Day Nursery</h2>
+            <p class="nursery-address">1 Brook End, North Crawley, Newport Pagnell, Buckinghamshire MK16 9HH</p>
+            <p class="nursery-phone">01234 391600</p>
+          </div>
+          <span class="status-badge status-waitlist">Waitlisted</span>
+        </div>
+        <div class="card-body">
+          <div class="data-cell">
+            <span class="data-cell-label">Hours</span>
+            <span class="data-cell-value">Mon–Fri, 7:30am–6:15pm<br/>50 weeks/year</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Age Range</span>
+            <span class="data-cell-value">0 to 4 years</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Capacity</span>
+            <span class="data-cell-value highlight">125 places</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Ofsted Rating</span>
+            <span class="data-cell-value">
+              <span class="ofsted-rating rating-good"><span class="rating-dot"></span>Good</span>
+            </span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Ofsted Date</span>
+            <span class="data-cell-value">6 Aug 2024</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Funded Places</span>
+            <span class="data-cell-value">2, 3 &amp; 4-year-olds</span>
+          </div>
+        </div>
+        <div class="card-row">
+          <span class="row-label">Availability</span>
+          <span class="row-value">Waitlisted — no current availability. Will visit if a place becomes available.</span>
+        </div>
+        <div class="card-ofsted">
+          <button class="ofsted-toggle" aria-expanded="false" onclick="toggleOfsted(this)">
+            <span class="ofsted-toggle-label">Ofsted Summary</span>
+            <span class="ofsted-chevron">▼</span>
+          </button>
+          <div class="ofsted-body">
+            <div class="ofsted-body-inner">
+              Overall: <strong>Good</strong> (prev. Good, 2018). All sub-judgements rated Good. Safeguarding effective with an open, positive culture.
+              <br/><br/>
+              <strong>Strengths:</strong> On-site farm (children grow their own fruit and vegetables, learn about animals); large outdoor area; strong love of books and reading; mathematics well embedded throughout routines and play; excellent SEND support; daily parent updates; strong emotional regulation support; children described by parents as "excited to attend" with a "home from home" feel.
+              <br/><br/>
+              <strong>To improve:</strong> Give younger children more time to listen and respond during conversations — staff should pace interactions to allow processing time.
+            </div>
+          </div>
+        </div>
+        <div class="card-notes">
+          <span class="notes-label">Notes</span>
+          <span class="notes-value">Registered 2011. Large setting with 39 staff.</span>
+        </div>
+      </div>
+
+      <!-- 6. Ducklings (new opening) -->
+      <div class="nursery-card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h2 class="nursery-name">Ducklings Preschool</h2>
+            <p class="nursery-address">New location — address TBC</p>
+          </div>
+          <span class="status-badge status-opening">Opening Sep 2026</span>
+        </div>
+        <div class="card-body cols-2">
+          <div class="data-cell">
+            <span class="data-cell-label">Chain Rating</span>
+            <span class="data-cell-value">
+              <span class="ofsted-rating rating-outstanding"><span class="rating-dot"></span>Outstanding</span>
+            </span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Ofsted Record</span>
+            <span class="data-cell-value">Not yet inspected (new location)</span>
+          </div>
+        </div>
+        <div class="card-row">
+          <span class="row-label">Availability</span>
+          <span class="row-value">Will receive notice to visit closer to opening.</span>
+        </div>
+        <div class="card-notes">
+          <span class="notes-label">Notes</span>
+          <span class="notes-value">Family-run chain operating 9+ settings across Milton Keynes, consistently rated Outstanding by Ofsted. New location opening September 2026 — no Ofsted report yet.</span>
+        </div>
+      </div>
+
+      <!-- ─────────────────────────────────────────────
+           NOT APPLYING
+           ───────────────────────────────────────────── -->
+
+      <!-- 7. Webber Independent School Nursery -->
+      <div class="nursery-card ruled-out">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h2 class="nursery-name">Webber Independent School Nursery</h2>
+            <p class="nursery-address">Soskin Drive, Stantonbury Fields, Milton Keynes MK14 6DP</p>
+          </div>
+          <span class="status-badge status-not-applying">Not applying</span>
+        </div>
+        <div class="card-body cols-2">
+          <div class="data-cell">
+            <span class="data-cell-label">Ofsted Rating</span>
+            <span class="data-cell-value">
+              <span class="ofsted-rating rating-good"><span class="rating-dot"></span>Good</span>
+            </span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Ofsted Date</span>
+            <span class="data-cell-value">7 Jun 2022 (first inspection)</span>
+          </div>
+        </div>
+        <div class="card-compliance">
+          <div class="compliance-header">
+            <span class="compliance-title">Compliance notices</span>
+          </div>
+          <div class="compliance-items">
+            <div class="compliance-item">
+              <span class="compliance-date">Jun 2023</span>
+              <span class="compliance-text">Complaint — Notice to Improve issued for inadequate knowledge of safeguarding allegation management procedures. Resolved within one week.</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-ofsted">
+          <button class="ofsted-toggle" aria-expanded="false" onclick="toggleOfsted(this)">
+            <span class="ofsted-toggle-label">Ofsted Summary</span>
+            <span class="ofsted-chevron">▼</span>
+          </button>
+          <div class="ofsted-body">
+            <div class="ofsted-body-inner">
+              Overall: <strong>Good</strong> (first inspection). All sub-judgements rated Good. Safeguarding effective.
+              <br/><br/>
+              <strong>Strengths:</strong> Children feel safe with strong key-person bonds; pond and woodland outings enrich curriculum; excellent school transition preparation; inclusive approach including home-language "survival words"; staff well-being supported.
+              <br/><br/>
+              <strong>To improve:</strong> Support staff on accurate letter-sound pronunciation; strengthen routine and group-time organisation so age-appropriate expectations are clear to children.
+            </div>
+          </div>
+        </div>
+        <div class="card-notes">
+          <span class="notes-label">Notes</span>
+          <span class="notes-value">Visited — did not like. Part of The Webber Independent School. Availability confirmed but not pursuing.</span>
+        </div>
+      </div>
+
+      <!-- 8. Ashbourne Day Nurseries (Oxley Park) -->
+      <div class="nursery-card ruled-out">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h2 class="nursery-name">Ashbourne Day Nurseries</h2>
+            <p class="nursery-address">20 Cushing Drive, Oxley Park, Milton Keynes MK4 4TJ</p>
+            <p class="nursery-phone">01908 522223</p>
+          </div>
+          <span class="status-badge status-not-applying">Not applying</span>
+        </div>
+        <div class="card-body">
+          <div class="data-cell">
+            <span class="data-cell-label">Hours</span>
+            <span class="data-cell-value">Mon–Fri, 7:30am–6:00pm<br/>Excl. bank holidays</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Age Range</span>
+            <span class="data-cell-value">0 to 4 years</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Capacity</span>
+            <span class="data-cell-value highlight">107 places</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Ofsted Rating</span>
+            <span class="data-cell-value">
+              <span class="ofsted-rating rating-good"><span class="rating-dot"></span>Good</span>
+            </span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Ofsted Date</span>
+            <span class="data-cell-value">5 Oct 2022</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Funded Places</span>
+            <span class="data-cell-value">2, 3 &amp; 4-year-olds</span>
+          </div>
+        </div>
+        <div class="card-compliance">
+          <div class="compliance-header">
+            <span class="compliance-title">Compliance notices — 2 in 2025</span>
+          </div>
+          <div class="compliance-items">
+            <div class="compliance-item">
+              <span class="compliance-date">Jun 2025</span>
+              <span class="compliance-text">Welfare requirements notice (serious) — safeguarding policies, first aid competency, staff:child ratios, and staff practice quality. Resolved by monitoring visit 6 Jun 2025.</span>
+            </div>
+            <div class="compliance-item">
+              <span class="compliance-date">Nov 2025</span>
+              <span class="compliance-text">Compliance action — staff:child ratios breached; children not always within sight or hearing. Risk assessments reviewed and staff coaching completed.</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-ofsted">
+          <button class="ofsted-toggle" aria-expanded="false" onclick="toggleOfsted(this)">
+            <span class="ofsted-toggle-label">Ofsted Summary</span>
+            <span class="ofsted-chevron">▼</span>
+          </button>
+          <div class="ofsted-body">
+            <div class="ofsted-body-inner">
+              Overall: <strong>Good</strong> (prev. Good, 2017). All sub-judgements rated Good. Safeguarding effective.
+              <br/><br/>
+              <strong>Strengths:</strong> Nurturing approach; children given hands-on responsibility (peeling/chopping vegetables); emotional development supported with picture cards; cultural diversity celebrated; leaders highly reflective and committed to improvement.
+              <br/><br/>
+              <strong>To improve:</strong> Support staff to provide greater depth of information during interactions; sharpen group activity organisation to focus on specific learning intentions.
+              <br/><br/>
+              <strong>Note:</strong> Two compliance actions issued in 2025 — including a welfare requirements notice in June for safeguarding, first aid, ratios, and staff skills. A further ratio breach was recorded in November 2025.
+            </div>
+          </div>
+        </div>
+        <div class="card-notes">
+          <span class="notes-label">Notes</span>
+          <span class="notes-value">Visited — did not like. Purpose-built building. Registered 2009. Not pursuing.</span>
         </div>
       </div>
 
