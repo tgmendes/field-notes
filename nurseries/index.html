@@ -496,6 +496,123 @@
     footer a { color: var(--border); text-decoration: none; transition: color 0.2s; }
     footer a:hover { color: var(--muted); }
 
+    /* ── ANALYSIS SECTION ── */
+    .analysis {
+      margin-bottom: 48px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      animation: fadeUp 0.6s 0.05s ease both;
+    }
+
+    .analysis-header {
+      padding: 18px 28px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .analysis-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .analysis-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--border);
+    }
+
+    .analysis-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .analysis-col {
+      padding: 24px 28px;
+    }
+
+    .analysis-col + .analysis-col {
+      border-left: 1px solid var(--border);
+    }
+
+    .analysis-col h3 {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .analysis-col p {
+      font-size: 0.86rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 12px;
+    }
+
+    .analysis-col p:last-child { margin-bottom: 0; }
+
+    .analysis-col p strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .analysis-full {
+      padding: 24px 28px;
+      border-top: 1px solid var(--border);
+    }
+
+    .analysis-full p {
+      font-size: 0.86rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 10px;
+    }
+
+    .analysis-full p:last-child { margin-bottom: 0; }
+
+    .analysis-full p strong { color: var(--ink); font-weight: 500; }
+
+    .analysis-picks {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .pick-row {
+      display: flex;
+      gap: 14px;
+      align-items: baseline;
+    }
+
+    .pick-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--ink);
+      font-weight: 500;
+      flex-shrink: 0;
+      min-width: 160px;
+    }
+
+    .pick-note {
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 720px) {
+      .analysis-body { grid-template-columns: 1fr; }
+      .analysis-col + .analysis-col { border-left: none; border-top: 1px solid var(--border); }
+      .analysis-header, .analysis-col, .analysis-full { padding-left: 18px; padding-right: 18px; }
+      .pick-name { min-width: 130px; }
+    }
+
     /* ── ANIMATIONS ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(12px); }
@@ -565,6 +682,57 @@
     <div class="section-meta">
       <span class="section-label">Nurseries</span>
       <span class="section-count">08 entries</span>
+    </div>
+
+    <!-- ── ANALYSIS ── -->
+    <div class="analysis">
+      <div class="analysis-header">
+        <span class="analysis-label">Analysis &amp; Recommendations</span>
+        <span class="analysis-date">May 2026</span>
+      </div>
+
+      <div class="analysis-body">
+        <div class="analysis-col">
+          <h3>The picture overall</h3>
+          <p>Seven of the eight active settings hold a current Good rating. None are Outstanding — except the Ducklings chain, whose new location is as yet uninspected. The two most recent inspections are <strong>Acorn Shenley</strong> (Feb 2025) and <strong>Wellies</strong> (Aug 2024), both reconfirming Good from previous Good ratings — the most reassuring pattern an Ofsted history can show.</p>
+          <p>Availability clusters around <strong>September 2027</strong> for most waitlisted options, with Ducklings (Sep 2026) as the only potential earlier entry point.</p>
+        </div>
+        <div class="analysis-col">
+          <h3>Rule out with confidence</h3>
+          <p><strong>Ashbourne at Oxley Park</strong> is the most concerning setting in the cohort. A welfare requirements notice in June 2025 — a legal instrument, not a routine advisory — covering safeguarding, first aid, and staff:child ratios, followed by a second ratio breach just five months later, is a pattern rather than an isolated slip. The Good rating from 2022 predates all of this. The visit impression lines up with the paperwork.</p>
+          <p><strong>Webber</strong> had a 2023 safeguarding allegation notice on top of a first inspection with notable improvement points around routines and letter-sound accuracy. Combined with the visit impression, an easy pass.</p>
+        </div>
+      </div>
+
+      <div class="analysis-full">
+        <h3 style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;">Best positioned</h3>
+        <div class="analysis-picks">
+          <div class="pick-row">
+            <span class="pick-name">Woodlands</span>
+            <span class="pick-note">Clean record, formerly Outstanding, already registered on waitlist. The standout detail is child-led routines for babies — sleep and eat on demand — which is genuinely rare at this scale. Forest school adds further weight.</span>
+          </div>
+          <div class="pick-row">
+            <span class="pick-name">Wellies</span>
+            <span class="pick-note">Largest setting (125 places), most recently reconfirmed Good (Aug 2024), no compliance history. An on-site farm and a strong culture around books and maths make it distinctive. The only improvement note — pace interactions for younger children — is minor and very common.</span>
+          </div>
+          <div class="pick-row">
+            <span class="pick-name">Acorn Shenley</span>
+            <span class="pick-note">Freshest inspection of the entire cohort (Feb 2025). The settling-in programme — including home visits before a child starts — is the most thoughtful approach to transitions across all eight settings. The only improvement point (maths planning) is the lightest criticism in the whole set. Worth prioritising.</span>
+          </div>
+          <div class="pick-row">
+            <span class="pick-name">Ducklings</span>
+            <span class="pick-note">Unknown quantity for this specific location, but an Outstanding-rated chain running 9+ MK settings for over 20 years. If the standards carry through, this could be the best option on the list. Worth visiting early once the opening is confirmed.</span>
+          </div>
+          <div class="pick-row">
+            <span class="pick-name">Acorn Cold Harbour</span>
+            <span class="pick-note">Good first inspection in 2022, Forest School grounds, strong SEND support. The 2021 supervision action predates the inspection and appears resolved. Unvisited — worth seeing before committing given September 2027 availability.</span>
+          </div>
+          <div class="pick-row">
+            <span class="pick-name">Acorn at the Rowans</span>
+            <span class="pick-note">Positive trajectory — moved from Requires Improvement to Good in 2023. Visited and availability confirmed, registration pending. The RI history is worth bearing in mind against the other Acorn settings (Shenley, Cold Harbour), which have cleaner records.</span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="nursery-list">
