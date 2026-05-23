@@ -271,6 +271,7 @@
     .status-waitlist    { color: var(--green);  border-color: var(--green);  background: rgba(45,110,78,0.06); }
     .status-pending     { color: var(--gold);   border-color: var(--gold);   background: rgba(176,125,16,0.06); }
     .status-opening     { color: var(--blue);   border-color: var(--blue);   background: rgba(42,95,165,0.06); }
+    .status-contacted   { color: var(--blue);   border-color: var(--blue);   background: rgba(42,95,165,0.06); }
     .status-not-applying{ color: var(--muted);  border-color: var(--border); background: transparent; }
 
     /* ── DATA GRID ── */
@@ -659,7 +660,7 @@
   <div class="stats-strip">
     <div class="stats-inner">
       <div class="stat">
-        <span class="stat-value">8</span>
+        <span class="stat-value">9</span>
         <span class="stat-label">Tracked</span>
       </div>
       <div class="stat">
@@ -681,7 +682,7 @@
   <main>
     <div class="section-meta">
       <span class="section-label">Nurseries</span>
-      <span class="section-count">08 entries</span>
+      <span class="section-count">09 entries</span>
     </div>
 
     <!-- ── ANALYSIS ── -->
@@ -694,7 +695,7 @@
       <div class="analysis-body">
         <div class="analysis-col">
           <h3>The picture overall</h3>
-          <p>Seven of the eight active settings hold a current Good rating. None are Outstanding — except the Ducklings chain, whose new location is as yet uninspected. The two most recent inspections are <strong>Acorn Shenley</strong> (Feb 2025) and <strong>Wellies</strong> (Aug 2024), both reconfirming Good from previous Good ratings — the most reassuring pattern an Ofsted history can show.</p>
+          <p>Eight of the nine active settings hold a current Good rating. <strong>Aristotots</strong> is the only setting in the cohort rated Outstanding at its last inspection — and is the only one where every single sub-judgement (education, behaviour, personal development, leadership) was also Outstanding. The two most recent Good inspections are <strong>Acorn Shenley</strong> (Feb 2025) and <strong>Wellies</strong> (Aug 2024), both reconfirming previous Good ratings.</p>
           <p>Availability clusters around <strong>September 2027</strong> for most waitlisted options, with Ducklings (Sep 2026) as the only potential earlier entry point.</p>
         </div>
         <div class="analysis-col">
@@ -707,6 +708,10 @@
       <div class="analysis-full">
         <h3 style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;">Best positioned</h3>
         <div class="analysis-picks">
+          <div class="pick-row">
+            <span class="pick-name">Aristotots ★</span>
+            <span class="pick-note">The only Outstanding-rated setting in this cohort — and every sub-judgement was Outstanding too, up from Good in 2017. Children described as "inspired and highly motivated"; curriculum meticulously designed; SEND support exceptional with one-to-one care; yoga and mindfulness spaces; community trips by train and to the theatre. Awaiting reply — this should be the priority to get on register.</span>
+          </div>
           <div class="pick-row">
             <span class="pick-name">Woodlands</span>
             <span class="pick-note">Clean record, formerly Outstanding, already registered on waitlist. The standout detail is child-led routines for babies — sleep and eat on demand — which is genuinely rare at this scale. Forest school adds further weight.</span>
@@ -741,7 +746,70 @@
            ACTIVE / WAITLISTED
            ───────────────────────────────────────────── -->
 
-      <!-- 1. Acorn at the Rowans -->
+      <!-- 1. Aristotots -->
+      <div class="nursery-card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h2 class="nursery-name">Aristotots Nursery School</h2>
+            <p class="nursery-address">Soskin Drive, Stantonbury Fields, Milton Keynes, Buckinghamshire MK14 6DP</p>
+            <p class="nursery-phone">01908 311800</p>
+          </div>
+          <span class="status-badge status-contacted">Awaiting reply</span>
+        </div>
+        <div class="card-body">
+          <div class="data-cell">
+            <span class="data-cell-label">Hours</span>
+            <span class="data-cell-value">Mon–Fri, 7:30am–6:30pm<br/>All year round</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Age Range</span>
+            <span class="data-cell-value">0 to 4 years</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Capacity</span>
+            <span class="data-cell-value highlight">99 places</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Ofsted Rating</span>
+            <span class="data-cell-value">
+              <span class="ofsted-rating rating-outstanding"><span class="rating-dot"></span>Outstanding</span>
+            </span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Ofsted Date</span>
+            <span class="data-cell-value">21 Mar 2023</span>
+          </div>
+          <div class="data-cell">
+            <span class="data-cell-label">Funded Places</span>
+            <span class="data-cell-value">2, 3 &amp; 4-year-olds</span>
+          </div>
+        </div>
+        <div class="card-row">
+          <span class="row-label">Availability</span>
+          <span class="row-value">Email sent — awaiting reply.</span>
+        </div>
+        <div class="card-ofsted">
+          <button class="ofsted-toggle" aria-expanded="false" onclick="toggleOfsted(this)">
+            <span class="ofsted-toggle-label">Ofsted Summary — Outstanding across all judgements</span>
+            <span class="ofsted-chevron">▼</span>
+          </button>
+          <div class="ofsted-body">
+            <div class="ofsted-body-inner">
+              Overall: <strong>Outstanding</strong> (prev. Good, 2017). Quality of education, behaviour &amp; attitudes, personal development, and leadership &amp; management all rated <strong>Outstanding</strong>. Safeguarding effective. No improvement actions required.
+              <br/><br/>
+              <strong>Strengths:</strong> Meticulously well-designed curriculum — children examine, predict, and articulate ideas with depth (e.g. mixing paints from still life); most nurturing and loving approach to settling; impeccable behaviour with rich vocabulary for emotions; inspirational manager prioritising staff development (including autism-in-girls training); exceptional SEND support with one-to-one care and external agency partnerships; community trips by train and to the theatre; yoga, mindfulness, and calming music spaces for self-regulation; fidget objects and focused behaviour strategies; children given meaningful responsibility (water-filling, self-care) from a young age; outstanding parent partnerships with a dedicated parents' resource area.
+              <br/><br/>
+              <strong>To improve:</strong> None identified.
+            </div>
+          </div>
+        </div>
+        <div class="card-notes">
+          <span class="notes-label">Notes</span>
+          <span class="notes-value">Registered 2003. Rated Outstanding up from Good (2017). 24 staff, 19 qualified. Interestingly shares the same road as Webber Independent School — Soskin Drive, Stantonbury Fields.</span>
+        </div>
+      </div>
+
+      <!-- 2. Acorn at the Rowans -->
       <div class="nursery-card">
         <div class="card-header">
           <div class="card-title-group">
